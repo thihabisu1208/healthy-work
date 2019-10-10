@@ -7,6 +7,7 @@ import Setting from './views/Setting.vue'
 import Nutrition from './views/Nutrition.vue'
 import Profile from './views/Profile.vue'
 import HealthReport from './views/HealthReport.vue'
+import Login from "./views/Login.vue"
 
 Vue.use(Router)
 
@@ -14,8 +15,15 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
-      path: '*',
-      redirect: '/foodmenu'
+      path: '/',
+      redirect: {
+        name: "login"
+      }
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
     }, {
       path: '/healthbalance',
       name: 'heathbalance',

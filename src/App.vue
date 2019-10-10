@@ -1,65 +1,89 @@
 <template>
 	<div id="app">
-		<transition name="router-animation">
-			<router-view />
-		</transition>
-		<nav id="nav">
-			<ul>
-				<li>
-					<router-link to="/healthbalance">
-						<p class="icons">
-							<font-awesome-icon icon="balance-scale" />
-						</p>
-						<span>食事バランス</span>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="/foodmenu">
-						<p class="icons">
-							<font-awesome-icon icon="utensils" />
-						</p>
-						<span>社食メニュー</span>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="/journal">
-						<p class="icons">
-							<font-awesome-icon icon="calendar-alt" />
-						</p>
-						<span>日々の食事</span>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="/setting">
-						<p class="icons">
-							<font-awesome-icon icon="cog" />
-						</p>
-						<span>マイページ</span>
-					</router-link>
-				</li>
-			</ul>
-		</nav>
+		<div id="nav">
+			<nav id="nav" v-if="authenticated">
+				<ul>
+					<li>
+						<router-link to="/healthbalance">
+							<p class="icons">
+								<font-awesome-icon icon="balance-scale" />
+							</p>
+							<span>食事バランス</span>
+						</router-link>
+					</li>
+					<li>
+						<router-link to="/foodmenu">
+							<p class="icons">
+								<font-awesome-icon icon="utensils" />
+							</p>
+							<span>社食メニュー</span>
+						</router-link>
+					</li>
+					<li>
+						<router-link to="/journal">
+							<p class="icons">
+								<font-awesome-icon icon="calendar-alt" />
+							</p>
+							<span>日々の食事</span>
+						</router-link>
+					</li>
+					<li>
+						<router-link to="/setting">
+							<p class="icons">
+								<font-awesome-icon icon="cog" />
+							</p>
+							<span>マイページ</span>
+						</router-link>
+					</li>
+				</ul>
+			</nav>
+			<!-- <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> -->
+		</div>
+		<router-view @authenticated="setAuthenticated" />
 	</div>
 </template>
+
 <script>
-	import { SpringSpinner } from "epic-spinners";
 	export default {
-		components: {
-			SpringSpinner
+		name: "App",
+		data() {
+			return {
+				authenticated: false,
+				mockAccount: {
+					username: "thiha1208",
+					password: "12345"
+				}
+			};
+		},
+		mounted() {
+			if (!this.authenticated) {
+				this.$router.replace({ name: "login" });
+			}
+		},
+		methods: {
+			setAuthenticated(status) {
+				this.authenticated = status;
+			},
+			logout() {
+				this.authenticated = false;
+			}
 		}
 	};
 </script>
+
 <style lang="scss">
 	@import url("https://fonts.googleapis.com/css?family=Sawarabi+Mincho");
 	@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap");
 	body {
 		width: 100vw;
+		background: #ff8f90;
 		margin: 0;
 		padding: 0;
 		font-family: "M PLUS Rounded 1c";
 	}
 
 	#nav {
+		z-index: 999;
 		position: fixed;
 		width: 100%;
 		bottom: 0;

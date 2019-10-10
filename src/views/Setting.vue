@@ -16,6 +16,10 @@
 					<p>健康診断結果</p>
 				</router-link>
 			</div>
+
+			<p id="logout">
+				<router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>ログアウト</router-link>
+			</p>
 		</div>
 	</div>
 </template>
@@ -27,6 +31,18 @@
 		name: "setting",
 		components: {
 			Header
+		},
+		data() {
+			return {
+				authenticated: true
+			};
+		},
+		methods: {
+			logout() {
+				this.authenticated = false;
+				document.body.style.background = "#ff8f90";
+				this.$router.replace({ name: "login" });
+			}
 		}
 	};
 </script>
@@ -61,6 +77,21 @@
 					margin: 0 0 30px;
 				}
 			}
+		}
+	}
+
+	#logout {
+		border-radius: 16px;
+		text-align: center;
+		margin: 100px auto 0;
+		width: 50%;
+		background: #34495e;
+		padding: 10px;
+		font-size: 20px;
+
+		a {
+			text-decoration: none;
+			color: #fff;
 		}
 	}
 </style>
