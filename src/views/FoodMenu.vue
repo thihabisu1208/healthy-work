@@ -26,6 +26,6 @@
 
 <style lang="scss" scoped>
 	#foodmenu {
-		margin: 100px 0 35vh;
+		margin: 100px 0 50vh;
 	}
 </style>

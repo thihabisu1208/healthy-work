@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div>
 		<transition name="router-animation">
 			<router-view />
 		</transition>
@@ -41,14 +41,11 @@
 		</nav>
 	</div>
 </template>
+
 <script>
-	import { SpringSpinner } from "epic-spinners";
-	export default {
-		components: {
-			SpringSpinner
-		}
-	};
+	export default {};
 </script>
+
 <style lang="scss">
 	@import url("https://fonts.googleapis.com/css?family=Sawarabi+Mincho");
 	@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap");
@@ -106,12 +103,12 @@
 	}
 
 	.router-animation-enter-active {
-		animation: coming 0.5s;
+		animation: coming 1s;
 		animation-delay: 0.5s;
 		opacity: 0;
 	}
 	.router-animation-leave-active {
-		animation: going 0.5s;
+		animation: going 1s;
 	}
 
 	@keyframes going {

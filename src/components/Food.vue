@@ -31,6 +31,11 @@
 			<ul>
 				<li v-for="menu in todayMenu" :key="menu.id">
 					<img style="display: inline" :src="menu" @click="removeFromPlate(index)" />
+					<div class="foodCount">
+						<font-awesome-icon class="foodCountIcons" icon="minus-circle" />
+						<span>{{ foodCount }}</span>
+						<font-awesome-icon class="foodCountIcons" icon="plus-circle" />
+					</div>
 				</li>
 			</ul>
 			<p>
@@ -47,7 +52,8 @@
 			return {
 				todayMenu: [],
 				foodData: [],
-				data: "good"
+				data: "good",
+				foodCount: 1
 			};
 		},
 		methods: {
@@ -85,9 +91,13 @@
 				let foodItems = document.querySelectorAll(".foodItemsImg");
 				for (var i = 0; i < foodItems.length; i++) {
 					foodItems[i].addEventListener("click", e => {
-						var menuImage = document.querySelector("#menuImage");
-						menuImage.classList.add("display");
-						this.todayMenu.push(e.target.src);
+						if (i > 0) {
+							var menuImage = document.querySelector("#menuImage");
+							menuImage.classList.add("display");
+							this.todayMenu.push(e.target.src);
+						} else {
+							menuImage.classList.remove("display");
+						}
 					});
 				}
 			},
@@ -142,6 +152,9 @@
 	}
 
 	#menuImage {
+		height: 250px;
+		border-radius: 16px 16px 0 0;
+		padding-bottom: 30px;
 		display: none;
 		position: fixed;
 		bottom: 10%;
@@ -154,19 +167,20 @@
 		}
 
 		h2 {
-			margin-left: 10px;
+			position: fixed;
+			left: 5%;
 			font-weight: normal;
 			font-size: 18px;
 		}
 		ul {
-			margin: 20px 0;
+			margin: 80px 0 20px;
 			padding: 0;
 			display: flex;
 			flex-wrap: no-wrap;
 			list-style: none;
 
 			li {
-				margin: 0 5px;
+				margin: 0 15px;
 				img {
 					width: 90px;
 					display: flex;
@@ -176,18 +190,34 @@
 		}
 
 		p {
-			position: absolute;
-			right: 5%;
-			bottom: 0;
+			position: fixed;
+			left: 25%;
+			margin: 0 auto;
+			width: 50%;
 			z-index: 999;
 			font-size: 22px;
 			background: #35495e;
 			border-radius: 16px;
+			text-align: center;
 
 			a {
 				text-decoration: none;
 				color: #fff;
 				padding: 10px 20px;
+			}
+		}
+
+		.foodCount {
+			width: 100%;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			span {
+				text-align: center;
+				font-size: 18px;
+			}
+			.foodCountIcons {
+				color: #ff8f90;
+				font-size: 25px;
 			}
 		}
 	}

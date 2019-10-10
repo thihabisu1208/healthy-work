@@ -16,7 +16,10 @@ import {
   faCog,
   faNotesMedical,
   faAddressCard,
-  faUserCircle
+  faUserCircle,
+  faTimes,
+  faPlusCircle,
+  faMinusCircle
 } from '@fortawesome/free-solid-svg-icons'
 import {
   FontAwesomeIcon
@@ -25,7 +28,7 @@ import router from './router'
 
 library.add(faArrowLeft, faBalanceScale, faUtensils, faCalendarAlt, faCog, faNotesMedical,
   faAddressCard,
-  faUserCircle)
+  faUserCircle, faTimes, faPlusCircle, faMinusCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueCharts, VueAxios, axios)

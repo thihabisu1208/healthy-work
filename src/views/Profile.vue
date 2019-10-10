@@ -47,7 +47,7 @@
 	#profile {
 		margin: 100px 0 15vh;
 		#goBack {
-			position: absolute;
+			position: fixed;
 			top: -4%;
 			left: 3%;
 			z-index: 999;
