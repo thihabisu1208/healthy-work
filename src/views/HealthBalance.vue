@@ -7,7 +7,7 @@
 			<div class="food">
 				<div v-for="food in foods" :key="food.id">
 					<div class="foodImage">
-						<img style="display: inline" :src="'http://10.40.112.45/jpg/' + food.id + '.jpg'" />
+						<img style="display: inline" :src="'/assets/img/food/' + food.id + '.jpg'" />
 					</div>
 					<p>{{ food.name }}</p>
 				</div>
@@ -67,7 +67,7 @@
 		computed: {
 			getTodayFood() {
 				this.$http
-					.get("http://10.40.112.45/nut.json")
+					.get("/assets/js/nut.json")
 					.then(response => {
 						var foodData = response.data;
 						this.foods = foodData;

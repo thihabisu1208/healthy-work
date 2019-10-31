@@ -29,12 +29,12 @@
 		<div id="menuImage">
 			<h2>食べご飯を選択</h2>
 			<ul>
-				<li v-for="menu in todayMenu" :key="menu.id">
+				<li v-for="menu in todayMenu" :key="menu.m_id">
 					<img style="display: inline" :src="menu" @click="removeFromPlate(index)" />
 					<div class="foodCount">
 						<font-awesome-icon class="foodCountIcons" icon="minus-circle" />
 						<span>{{ foodCount }}</span>
-						<font-awesome-icon class="foodCountIcons" icon="plus-circle" />
+						<font-awesome-icon class="foodCountIcons" icon="plus-circle" @click="addFood()" />
 					</div>
 				</li>
 			</ul>
@@ -59,8 +59,9 @@
 		methods: {
 			getFood() {
 				this.$http
-					.get("http://10.40.112.45/results.json")
+					.get("http://jz.jec.ac.jp/innovative/menu.php")
 					.then(response => {
+						console.log(response.data);
 						var foodData = response.data;
 						var foodMainDish = document.querySelector("#foodMainDish");
 						var foodSideDish = document.querySelector("#foodSideDish");
@@ -68,17 +69,17 @@
 							"#foodSoupRiceAndDeserts"
 						);
 						for (var c = 0; c < foodData.length; c++) {
-							var category = foodData[c].category;
+							var category = foodData[c].m_category;
 							if (category === "主菜") {
-								foodMainDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://10.40.112.45/jpg/${foodData[c].id}.jpg" alt="${foodData[c].name}"/></label></li>`;
+								foodMainDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" alt="${foodData[c].m_name}"/></label></li>`;
 							} else if (category === "副菜") {
-								foodSideDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://10.40.112.45/jpg/${foodData[c].id}.jpg" alt="${foodData[c].name}"/></label></li>`;
+								foodSideDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" alt="${foodData[c].m_name}"/></label></li>`;
 							} else if (
 								category === "汁物" ||
 								category === "ごはん" ||
 								category === "デザート"
 							) {
-								foodSoupRiceAndDeserts.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].name}" class="foodItems" name="${foodData[c].name}"><img class="foodItemsImg" style="width: 100px" src="http://10.40.112.45/jpg/${foodData[c].id}.jpg" alt="${foodData[c].name}"/></label></li>`;
+								foodSoupRiceAndDeserts.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems" name="${foodData[c].m_name}"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" alt="${foodData[c].m_name}"/></label></li>`;
 							}
 						}
 						this.addToPlate();
@@ -103,6 +104,9 @@
 			},
 			removeFromPlate(index) {
 				this.todayMenu.splice(index, 1);
+			},
+			addFood() {
+				this.foodCount += 1;
 			}
 		},
 		created() {

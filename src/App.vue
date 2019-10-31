@@ -48,11 +48,7 @@
 		name: "App",
 		data() {
 			return {
-				authenticated: false,
-				mockAccount: {
-					username: "thiha1208",
-					password: "12345"
-				}
+				authenticated: false
 			};
 		},
 		mounted() {

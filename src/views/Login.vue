@@ -3,13 +3,17 @@
 		<h1>HealthyWork</h1>
 		<div id="loginForm">
 			<h2>ログイン</h2>
-			<label for="username">社員 ID</label>
-			<input type="text" name="username" v-model="input.username" />
-			<label for="password">パスワード</label>
-			<input type="password" name="password" v-model="input.password" />
-			<p>
-				<a @click.enter="login()">ログイン</a>
-			</p>
+			<div>
+				<label for="username">社員 ID</label>
+				<input type="text" name="username" v-model="employee.e_id" />
+				{{ employee.e_id }}
+				<label for="password">パスワード</label>
+				<input type="password" name="password" v-model="employee.e_password" />
+				{{ employee.e_password }}
+				<p>
+					<input type="submit" value="ログイン" @click.prevent="login()" />
+				</p>
+			</div>
 		</div>
 	</div>
 </template>
@@ -19,28 +23,42 @@
 		name: "Login",
 		data() {
 			return {
-				input: {
-					username: "",
-					password: ""
+				employee: {
+					e_id: "",
+					e_password: ""
 				}
 			};
 		},
 		methods: {
 			login() {
-				if (this.input.username != "" && this.input.password != "") {
-					if (
-						this.input.username == this.$parent.mockAccount.username &&
-						this.input.password == this.$parent.mockAccount.password
-					) {
-						this.$emit("authenticated", true);
-						this.$router.replace({ name: "foodmenu" });
-						document.body.style.background = "#fff";
-					} else {
-						console.log("The username and / or password is incorrect");
-					}
-				} else {
-					console.log("A username and password must be present");
+				var logForm = this.toFormData(this.employee);
+				// var logForm = Object.assign({}, this.employee);
+				const options = {
+					method: "POST",
+					headers: { "content-type": "application/form-data" },
+					data: logForm,
+					url: "http://jz.jec.ac.jp/innovative/e_login.php"
+				};
+				this.$http
+					.post(options)
+					.then(response => {
+						console.log(response.data);
+
+						// this.$emit("authenticated", true);
+						// this.$router.replace({ name: "foodmenu" });
+
+						// document.body.style.background = "#fff";
+					})
+					.catch(err => {
+						console.log(err.message);
+					});
+			},
+			toFormData: function(obj) {
+				let formData = new FormData();
+				for (let key in obj) {
+					formData.append(key, obj[key]);
 				}
+				return formData;
 			}
 		}
 	};
@@ -84,13 +102,16 @@
 			}
 
 			p {
-				padding: 10px 0;
-				margin: 30px auto 20px;
-				width: 80%;
-				text-align: center;
-				background: #34495e;
-				color: #fff;
-				border-radius: 16px;
+				input {
+					font-size: 20px;
+					padding: 10px 0;
+					margin: 30px auto 20px;
+					width: 80%;
+					text-align: center;
+					background: #34495e;
+					color: #fff;
+					border-radius: 16px;
+				}
 			}
 		}
 	}

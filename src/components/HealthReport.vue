@@ -266,7 +266,7 @@
 					<div class="overlay" @click.self="showBlood = false">
 						<div class="modal">
 							<h2>
-								血圧測定
+								血圧
 								<span @click="showBlood = !showBlood">
 									<font-awesome-icon icon="times" />
 								</span>
