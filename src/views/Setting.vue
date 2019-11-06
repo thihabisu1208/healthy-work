@@ -18,7 +18,7 @@
 			</div>
 
 			<p id="logout">
-				<router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>ログアウト</router-link>
+				<router-link to="/login" @click.native="logout()">ログアウト</router-link>
 			</p>
 		</div>
 	</div>
@@ -32,14 +32,9 @@
 		components: {
 			Header
 		},
-		data() {
-			return {
-				authenticated: true
-			};
-		},
 		methods: {
 			logout() {
-				this.authenticated = false;
+				this.$emit("authenticated", false);
 				document.body.style.background = "#ff8f90";
 				this.$router.replace({ name: "login" });
 			}

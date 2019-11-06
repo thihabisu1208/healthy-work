@@ -7,25 +7,27 @@
 		</router-link>
 		<Header headerName="プロフィール" />
 		<div id="profileData">
-			<p class="icons">
-				<img src="../assets/img/profile.png" alt />
-			</p>
 			<div class="profile">
-				<div class="name profileData">
-					<p>名前</p>
-					<p>ティハ トーン ナイン</p>
-				</div>
 				<div class="id profileData">
 					<p>社員 ID</p>
-					<p>5046133</p>
+					<p>{{ profile.e_id }}</p>
+				</div>
+				<div class="name profileData">
+					<p>名前</p>
+					<p>{{ profile.e_name }}</p>
 				</div>
 				<div class="gender profileData">
 					<p>性別</p>
-					<p>男</p>
+					<p v-if="profile.e_gender == 1">男性</p>
+					<p v-else>女性</p>
 				</div>
 				<div class="birthday profileData">
 					<p>生年月日</p>
-					<p>1997年11月14日</p>
+					<p>{{ profile.e_birth }}</p>
+				</div>
+				<div class="department profileData">
+					<p>部署</p>
+					<p>{{ profile.e_department }}</p>
 				</div>
 			</div>
 		</div>
@@ -39,6 +41,23 @@
 		name: "profile",
 		components: {
 			Header
+		},
+		data() {
+			return {
+				profile: ""
+			};
+		},
+		methods: {
+			getProfile() {
+				this.$http
+					.get("http://jz.jec.ac.jp/innovative/showEmployee.php")
+					.then(response => {
+						this.profile = response.data[0];
+					});
+			}
+		},
+		mounted() {
+			this.getProfile();
 		}
 	};
 </script>
@@ -55,17 +74,8 @@
 			color: #fff;
 		}
 		#profileData {
-			.icons {
-				margin: 0 auto;
-				width: 40%;
-				img {
-					width: 100%;
-					border-radius: 50%;
-				}
-			}
-
 			.profile {
-				margin: 20px auto 0;
+				margin: 0 auto;
 				width: 90%;
 
 				.profileData {

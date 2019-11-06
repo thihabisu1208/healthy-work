@@ -3,6 +3,7 @@
 		<Header headerName="食べたお昼ご飯" />
 		<div id="nutritionData">
 			<div id="selected">
+				<!-- {{ todayMenu.name }} -->
 				<h2>選択中</h2>
 				<div class="food">
 					<div v-for="food in foods" :key="food.id">
@@ -62,7 +63,9 @@
 		components: {
 			Header
 		},
-		props: ["data"],
+		props: {
+			todayMenu: Object
+		},
 		data() {
 			return {
 				foods: []

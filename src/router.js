@@ -32,7 +32,8 @@ const router = new Router({
     {
       path: '/foodmenu',
       name: 'foodmenu',
-      component: FoodMenu
+      component: FoodMenu,
+      props: true
     },
     {
       path: '/journal',
@@ -47,7 +48,8 @@ const router = new Router({
     {
       path: '/nutrition',
       name: 'nutrition',
-      component: Nutrition
+      component: Nutrition,
+      props: true
     },
     {
       path: '/profile',

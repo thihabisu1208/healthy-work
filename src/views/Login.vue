@@ -3,24 +3,23 @@
 		<h1>HealthyWork</h1>
 		<div id="loginForm">
 			<h2>ログイン</h2>
-			<div>
+			<form method="POST" action="http://jz.jec.ac.jp/innovative/e_login.php">
 				<label for="username">社員 ID</label>
 				<input type="text" name="username" v-model="employee.e_id" />
-				{{ employee.e_id }}
 				<label for="password">パスワード</label>
 				<input type="password" name="password" v-model="employee.e_password" />
 				{{ employee.e_password }}
 				<p>
 					<input type="submit" value="ログイン" @click.prevent="login()" />
 				</p>
-			</div>
+			</form>
 		</div>
 	</div>
 </template>
 
 <script>
 	export default {
-		name: "Login",
+		name: "login",
 		data() {
 			return {
 				employee: {
@@ -31,27 +30,30 @@
 		},
 		methods: {
 			login() {
-				var logForm = this.toFormData(this.employee);
-				// var logForm = Object.assign({}, this.employee);
-				const options = {
-					method: "POST",
-					headers: { "content-type": "application/form-data" },
-					data: logForm,
-					url: "http://jz.jec.ac.jp/innovative/e_login.php"
-				};
-				this.$http
-					.post(options)
-					.then(response => {
-						console.log(response.data);
+				this.$emit("authenticated", true);
+				this.$router.replace({ name: "foodmenu" });
+				document.body.style.background = "#fff";
+				// var logForm = this.toFormData(this.employee);
+				// const options = {
+				// 	method: "POST",
+				// 	headers: { "content-type": "application/form-data" },
+				// 	data: logForm,
+				// 	url: "http://jz.jec.ac.jp/innovative/e_login.php"
+				// 	// url: "https://www.google.com/"
+				// };
+				// this.$http
+				// 	.post(options)
+				// 	.then(response => {
+				// 		console.log(response.data);
 
-						// this.$emit("authenticated", true);
-						// this.$router.replace({ name: "foodmenu" });
+				// this.$emit("authenticated", true);
+				// this.$router.replace({ name: "foodmenu" });
 
-						// document.body.style.background = "#fff";
-					})
-					.catch(err => {
-						console.log(err.message);
-					});
+				// document.body.style.background = "#fff";
+				// })
+				// .catch(err => {
+				// 	console.log(err.message);
+				// });
 			},
 			toFormData: function(obj) {
 				let formData = new FormData();

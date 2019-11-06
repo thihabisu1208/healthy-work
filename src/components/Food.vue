@@ -26,15 +26,18 @@
 				</div>
 			</div>
 		</div>
-		<div id="menuImage">
+		<!-- <div class="random">{{ randomFood }}</div> -->
+		<div v-if="todayMenu.length !== 0" id="menuImage">
 			<h2>食べご飯を選択</h2>
 			<ul>
-				<li v-for="menu in todayMenu" :key="menu.m_id">
-					<img style="display: inline" :src="menu" @click="removeFromPlate(index)" />
-					<div class="foodCount">
-						<font-awesome-icon class="foodCountIcons" icon="minus-circle" />
-						<span>{{ foodCount }}</span>
-						<font-awesome-icon class="foodCountIcons" icon="plus-circle" @click="addFood()" />
+				<li v-for="(menu, index) in todayMenu" :key="menu.m_id">
+					<div>
+						<img style="display: inline" :src="menu" @click="removeFromPlate(index)" />
+						<div class="foodCount">
+							<font-awesome-icon class="foodCountIcons" icon="minus-circle" />
+							<span>{{ foodCount }}</span>
+							<font-awesome-icon class="foodCountIcons" icon="plus-circle" @click="addFood()" />
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -51,6 +54,7 @@
 		data() {
 			return {
 				todayMenu: [],
+				showTodayMenu: false,
 				foodData: [],
 				data: "good",
 				foodCount: 1
@@ -61,7 +65,6 @@
 				this.$http
 					.get("http://jz.jec.ac.jp/innovative/menu.php")
 					.then(response => {
-						console.log(response.data);
 						var foodData = response.data;
 						var foodMainDish = document.querySelector("#foodMainDish");
 						var foodSideDish = document.querySelector("#foodSideDish");
@@ -92,13 +95,7 @@
 				let foodItems = document.querySelectorAll(".foodItemsImg");
 				for (var i = 0; i < foodItems.length; i++) {
 					foodItems[i].addEventListener("click", e => {
-						if (i > 0) {
-							var menuImage = document.querySelector("#menuImage");
-							menuImage.classList.add("display");
-							this.todayMenu.push(e.target.src);
-						} else {
-							menuImage.classList.remove("display");
-						}
+						this.todayMenu.push(e.target.src);
 					});
 				}
 			},
@@ -111,6 +108,11 @@
 		},
 		created() {
 			this.getFood();
+		},
+		computed: {
+			randomFood() {
+				return this.$store.state.food.mainDish.m_name;
+			}
 		}
 	};
 </script>
@@ -159,7 +161,7 @@
 		height: 250px;
 		border-radius: 16px 16px 0 0;
 		padding-bottom: 30px;
-		display: none;
+		// display: none;
 		position: fixed;
 		bottom: 10%;
 		width: 100%;
