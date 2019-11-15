@@ -2,7 +2,6 @@
 	<div id="foodmenu">
 		<Header headerName="本日のメニュー" />
 		<Food />
-		<router-view></router-view>
 	</div>
 </template>
 

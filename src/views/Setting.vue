@@ -17,8 +17,8 @@
 				</router-link>
 			</div>
 
-			<p id="logout">
-				<router-link to="/login" @click.native="logout()">ログアウト</router-link>
+			<p id="logout" @click="logout()">
+				<button>ログアウト</button>
 			</p>
 		</div>
 	</div>
@@ -35,8 +35,11 @@
 		methods: {
 			logout() {
 				this.$emit("authenticated", false);
+				localStorage.removeItem("token");
+				localStorage.removeItem("user");
+				delete this.$http.defaults.headers.common["Authorization"];
 				document.body.style.background = "#ff8f90";
-				this.$router.replace({ name: "login" });
+				this.$router.push({ name: "login" });
 			}
 		}
 	};
@@ -82,9 +85,9 @@
 		width: 50%;
 		background: #34495e;
 		padding: 10px;
-		font-size: 20px;
 
-		a {
+		button {
+			font-size: 20px;
 			text-decoration: none;
 			color: #fff;
 		}

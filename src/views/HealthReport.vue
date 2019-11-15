@@ -26,7 +26,7 @@
 
 <style lang="scss" scoped>
 	#healthreport {
-		margin: 100px 0 15vh;
+		margin: 70px 0 15vh;
 		#goBack {
 			position: fixed;
 			top: -4%;

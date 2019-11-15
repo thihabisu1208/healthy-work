@@ -1,43 +1,23 @@
 <template>
 	<div id="healthreport">
-		<chartjs-radar class="charts" :labels="labels" :datasets="datasets" :option="option"></chartjs-radar>
 		<div id="mark">
-			<div class="hantei">
-				<p>判定基準</p>
-				<ul>
-					<li>Ａ：正常範囲です。</li>
-					<li>Ｂ：わずかに異常を認めます。</li>
-					<li>Ｃ：生活習慣を改善し再検してください。</li>
-				</ul>
-			</div>
 			<div class="sougou">
+				<p>総合判定</p>
 				<p>
-					総合判定
-					<span>{{ mark }}</span>
+					<a @click="showAverage = !showAverage">判定区分表</a>
 				</p>
-				<ul>
-					<li>
-						<span class="thisYear">{{ thisYear }}</span> 年度
-					</li>
-					<li>
-						<span class="lastYear">{{ lastYear }}</span> 年度
-					</li>
-				</ul>
 			</div>
+			<hr />
+			<div class="keido">
+				<p>{{ mark }}</p>
+				<p>軽度の変化</p>
+			</div>
+			<hr />
 		</div>
-		<hr />
 		<div id="healthDetails">
 			<a @click="showBody = !showBody">
 				<img src="@/assets/img/body.png" alt />
 				<p>身体測定</p>
-			</a>
-			<a @click="showEye = !showEye">
-				<img src="@/assets/img/eye.png" alt />
-				<p>視力検査</p>
-			</a>
-			<a @click="showEar = !showEar">
-				<img src="@/assets/img/ear.png" alt />
-				<p>聴覚検査</p>
 			</a>
 			<a @click="showWeight = !showWeight">
 				<img src="@/assets/img/weight.png" alt />
@@ -47,13 +27,93 @@
 				<img src="@/assets/img/blood.png" alt />
 				<p>血圧</p>
 			</a>
-			<a @click="showHeart = !showHeart">
-				<img src="@/assets/img/heart.png" alt />
-				<p>心拍数</p>
-			</a>
+		</div>
+		<p id="save">
+			<router-link to="/addhealthreport">登録する</router-link>
+		</p>
+
+		<div v-if="showAverage">
+			<div class="overlay" @click.self="showAverage = false">
+				<div class="modal">
+					<h2>
+						判定区分表
+						<span @click="showAverage = !showAverage">
+							<font-awesome-icon icon="times" />
+						</span>
+					</h2>
+					<div class="showAverageDetails">
+						<div class="details">
+							<div>
+								<h3 class="a">A</h3>
+							</div>
+							<div>
+								<p>
+									<span>異常なし</span>
+									<span>今後も健康状態を維持できるように努めましょう。</span>
+								</p>
+							</div>
+						</div>
+						<div class="details">
+							<div>
+								<h3 class="b">B</h3>
+							</div>
+							<div>
+								<p>
+									<span>軽度の変化</span>
+									<span>日常生活に支障がなく、治療も必要ない程度の異常です。</span>
+								</p>
+							</div>
+						</div>
+						<div class="details">
+							<div>
+								<h3 class="c">C</h3>
+							</div>
+							<div>
+								<p>
+									<span>経過観察</span>
+									<span>緊急性はないものの、基準範囲を超えた異常があります。</span>
+								</p>
+							</div>
+						</div>
+						<div class="details">
+							<div>
+								<h3 class="d">D</h3>
+							</div>
+							<div>
+								<p>
+									<span>要再検査</span>
+									<span>再度確認が必要なデータがあることを示しています。体調が良い時に再度検査を受けましょう。</span>
+								</p>
+							</div>
+						</div>
+						<div class="details">
+							<div>
+								<h3 class="e">E</h3>
+							</div>
+							<div>
+								<p>
+									<span>要精密検査</span>
+									<span>明らかな異常があることを示しています。重大な疾病が現任となっている可能性もあるので、できるだけ早く精密検査を受けましょう。</span>
+								</p>
+							</div>
+						</div>
+						<div class="details">
+							<div>
+								<h3 class="f">F</h3>
+							</div>
+							<div>
+								<p>
+									<span>要治療</span>
+									<span>明らかな異常があり、さらに明らかな疾患があることを示しています。専門医による治療を開始する必要があるので、速やかに医療機関を受診しましょう。</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div id="healthDetailsShow">
-			<transition name="modal">
+			<transition name="fade">
 				<div v-if="showBody">
 					<div class="overlay" @click.self="showBody = false">
 						<div class="modal">
@@ -130,94 +190,8 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="showEye">
-					<div class="overlay" @click.self="showEye = false">
-						<div class="modal">
-							<h2>
-								視力検査
-								<span @click="showEye = !showEye">
-									<font-awesome-icon icon="times" />
-								</span>
-							</h2>
-							<table cellpadding="8">
-								<tr>
-									<th></th>
-									<th class="lastYear">{{ lastYear }}</th>
-									<th class="thisYear">{{ thisYear }}</th>
-									<th class="borderLess">変化</th>
-								</tr>
-								<tr class="bodyDetails">
-									<th>右目</th>
-									<td>170 C</td>
-									<td>170 A</td>
-									<td>
-										<img src="@/assets/img/uparrow.png" alt />
-									</td>
-								</tr>
-								<tr class="bodyDetails">
-									<th>右目</th>
-									<td>170 B</td>
-									<td>170 A</td>
-									<td>
-										<img src="@/assets/img/uparrow.png" alt />
-									</td>
-								</tr>
-								<tr class="bodyDetails">
-									<th>標準</th>
-									<td>170 C</td>
-									<td>170 C</td>
-									<td>
-										<img src="@/assets/img/downarrow.png" alt />
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div v-if="showEar">
-					<div class="overlay" @click.self="showEar = false">
-						<div class="modal">
-							<h2>
-								聴覚検査
-								<span @click="showEar = !showEar">
-									<font-awesome-icon icon="times" />
-								</span>
-							</h2>
-							<table cellpadding="8">
-								<tr>
-									<th></th>
-									<th class="lastYear">{{ lastYear }}</th>
-									<th class="thisYear">{{ thisYear }}</th>
-									<th class="borderLess">変化</th>
-								</tr>
-								<tr class="bodyDetails">
-									<th>右耳</th>
-									<td>170 C</td>
-									<td>170 A</td>
-									<td>
-										<img src="@/assets/img/uparrow.png" alt />
-									</td>
-								</tr>
-								<tr class="bodyDetails">
-									<th>左耳</th>
-									<td>170 B</td>
-									<td>170 A</td>
-									<td>
-										<img src="@/assets/img/downarrow.png" alt />
-									</td>
-								</tr>
-								<tr class="bodyDetails">
-									<th>標準</th>
-									<td>170 C</td>
-									<td>170 C</td>
-									<td>
-										<img src="@/assets/img/downarrow.png" alt />
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
+			</transition>
+			<transition name="fade">
 				<div v-if="showWeight">
 					<div class="overlay" @click.self="showWeight = false">
 						<div class="modal">
@@ -262,6 +236,8 @@
 						</div>
 					</div>
 				</div>
+			</transition>
+			<transition name="fade">
 				<div v-if="showBlood">
 					<div class="overlay" @click.self="showBlood = false">
 						<div class="modal">
@@ -306,42 +282,6 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="showHeart">
-					<div class="overlay" @click.self="showHeart = false">
-						<div class="modal">
-							<h2>
-								心拍数
-								<span @click="showHeart = !showHeart">
-									<font-awesome-icon icon="times" />
-								</span>
-							</h2>
-							<table cellpadding="8">
-								<tr>
-									<th></th>
-									<th class="lastYear">{{ lastYear }}</th>
-									<th class="thisYear">{{ thisYear }}</th>
-									<th class="borderLess">変化</th>
-								</tr>
-								<tr class="bodyDetails">
-									<th>BPM</th>
-									<td>170 C</td>
-									<td>170 A</td>
-									<td>
-										<img src="@/assets/img/uparrow.png" alt />
-									</td>
-								</tr>
-								<tr class="bodyDetails">
-									<th>標準</th>
-									<td>170 B</td>
-									<td>170 A</td>
-									<td>
-										<img src="@/assets/img/downarrow.png" alt />
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
 			</transition>
 		</div>
 	</div>
@@ -353,65 +293,106 @@
 		data() {
 			return {
 				showBody: false,
-				showEye: false,
-				showEar: false,
 				showWeight: false,
 				showBlood: false,
-				showHeart: false,
+				showAverage: false,
 				lastYear: "2018",
 				thisYear: "2019",
-				mark: "B",
-				labels: [
-					"収納期血圧",
-					"拡張期血圧",
-					"空腹時血糖",
-					"HbA1c",
-					"中性脂肪",
-					"HDL",
-					"LDL",
-					"腹囲",
-					"BMI"
-				],
-				datasets: [
-					{
-						label: "2018",
-						data: [340, 316, 256, 250, 210, 206, 256, 260, 260],
-						backgroundColor: "transparent",
-						pointBackgroundColor: "red",
-						borderColor: "red"
-					},
-					{
-						label: "2019",
-						data: [280, 260, 230, 246, 230, 250, 256, 240, 250],
-						backgroundColor: "transparent",
-						pointBackgroundColor: "blue",
-						borderColor: "blue"
-					}
-				],
-				option: {
-					legend: {
-						display: false,
-						fullWidth: false,
-						position: "bottom"
-					},
-					scale: {
-						ticks: {
-							display: false
-						},
-						gridLines: {
-							circular: true
-						},
-						pointLabels: {
-							fontSize: 15
-						}
-					}
-				}
+				mark: "B"
 			};
 		}
 	};
 </script>
 
 <style lang="scss" scoped>
+	// .fade-enter-active,
+	// .fade-leave-active {
+	// 	transition: 0.1s;
+	// 	z-index: 1000;
+	// }
+	// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+	// 	opacity: 0;
+	// }
+	#save {
+		width: 60%;
+		margin: 20px auto;
+		background: #ff8f90;
+		text-align: center;
+		padding: 15px;
+		border-radius: 20px;
+		a {
+			font-size: 22px;
+			text-decoration: none;
+			color: #fff;
+		}
+	}
+
+	.showAverageDetails {
+		width: 90%;
+		margin: 0 auto;
+
+		.details {
+			width: 100%;
+			display: grid;
+			grid-template-columns: 0.3fr 0.7fr;
+		}
+
+		.details div:nth-of-type(1) {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.details h3 {
+			width: 50%;
+			text-align: center;
+			margin: 0;
+			padding: 10px 3px;
+			border-radius: 50%;
+			font-size: 23px;
+			color: #fff;
+
+			&.a {
+				background: #7ed978;
+			}
+
+			&.b {
+				background: #78d9c5;
+			}
+
+			&.c {
+				background: #68baf1;
+			}
+
+			&.d {
+				background: #6868f1;
+			}
+
+			&.e {
+				background: #c968f1;
+			}
+
+			&.f {
+				background: #f1687b;
+			}
+		}
+
+		.details p span {
+			color: #757575;
+			display: block;
+		}
+
+		.details p span:nth-of-type(1) {
+			width: 100%;
+			font-size: 15px;
+			border-bottom: 1px solid #000;
+		}
+
+		.details p span:nth-of-type(2) {
+			font-size: 10px;
+		}
+	}
+
 	.lastYear {
 		color: #f86263;
 	}
@@ -420,41 +401,52 @@
 		color: #638bf8;
 	}
 
-	.charts {
-		width: 99.8% !important;
-		height: 184px !important;
-		background: url("../assets/img/radar.png") center center;
-		background-repeat: no-repeat;
-	}
-
 	#mark {
 		margin: 0 auto;
-		width: 90%;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-
-		.hantei,
-		.sougou {
+		width: 80%;
+		.sougou,
+		.keido {
+			margin: 0 auto;
+			width: 100%;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
 			p {
 				font-size: 20px;
+				padding: 5px;
+				margin-bottom: 0;
 			}
 
-			ul {
-				font-size: 12px;
-				list-style: none;
-				margin: 0;
-				padding: 0;
+			p:nth-of-type(1) {
+			}
+
+			p:nth-of-type(2) {
+				text-align: right;
+
+				a {
+					border-radius: 10px;
+					padding: 5px 10px;
+					color: #fff;
+					background: #34495e;
+					text-decoration: none;
+				}
 			}
 		}
 
-		.sougou {
-			text-align: right;
-			p {
-				border-bottom: 1px solid #000;
-			}
-			p span {
-				color: #638bf8;
-				font-size: 24px;
+		.keido {
+			width: 60%;
+			grid-template-columns: 0.3fr 1fr;
+
+			p:nth-of-type(1) {
+				font-family: Helvetica, Arial, sans-serif;
+				background: #78d9c5;
+				padding: 5px 15px;
+				border-radius: 50%;
+				color: #fff;
+				font-size: 22px;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 		}
 	}
@@ -534,20 +526,6 @@
 		tr td {
 			text-align: center;
 		}
-	}
-
-	.fadeIn-enter {
-		opacity: 0;
-	}
-
-	.fadeIn-leave-active {
-		opacity: 0;
-		transition: all 0.2s step-end;
-	}
-
-	.fadeIn-enter .modal,
-	.fadeIn-leave-active.modal {
-		transform: scale(1.1);
 	}
 
 	.overlay {

@@ -26,41 +26,75 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="random">{{ randomFood }}</div> -->
-		<div v-if="todayMenu.length !== 0" id="menuImage">
+
+		<div id="oneDay">
+			<div>
+				<h3>
+					一食の目安
+					<span>80 kcal = 1点</span>
+				</h3>
+				<p>
+					<span>緑 : 1点</span>
+					<span>赤 : 2点</span>
+					<span>黄色 : 5点</span>
+				</p>
+			</div>
+		</div>
+
+		<div v-if="selectedFood.length !== 0" id="menuImage">
 			<h2>食べご飯を選択</h2>
 			<ul>
-				<li v-for="(menu, index) in todayMenu" :key="menu.m_id">
+				<li v-for="(menu, index) in selectedFood" :key="menu.m_id">
 					<div>
-						<img style="display: inline" :src="menu" @click="removeFromPlate(index)" />
+						<img style="display: inline" :src="menu.src" @click="removeFromPlate(index)" />
 						<div class="foodCount">
 							<font-awesome-icon class="foodCountIcons" icon="minus-circle" />
 							<span>{{ foodCount }}</span>
-							<font-awesome-icon class="foodCountIcons" icon="plus-circle" @click="addFood()" />
+							<font-awesome-icon
+								class="foodCountIcons"
+								icon="plus-circle"
+								@click="addFood(); selectFood(selectedFood)"
+							/>
 						</div>
 					</div>
 				</li>
 			</ul>
 			<p>
-				<router-link to="/nutrition">栄養を見る</router-link>
+				<a @click="showModal(); selectFood(selectedFood)">栄養を見る</a>
 			</p>
+			<div class="overlay" v-if="showSelectedFoodModal == true">
+				<SelectedFood @clicked="showSelectedFoodModal = false" :selectedFood="this.currentFood" />
+			</div>
+			<!-- <p>
+				<router-link to="/nutrition">栄養を見る</router-link>
+			</p>-->
 		</div>
 	</div>
 </template>
 
 <script>
+	import SelectedFood from "@/components/SelectedFood";
+
 	export default {
 		name: "food",
+		components: {
+			SelectedFood
+		},
 		data() {
 			return {
-				todayMenu: [],
+				selectedFood: [],
 				showTodayMenu: false,
+				showSelectedFoodModal: false,
+				currentFood: [],
 				foodData: [],
 				data: "good",
 				foodCount: 1
 			};
 		},
 		methods: {
+			showModal() {
+				this.showSelectedFoodModal = !this.showSelectedFoodModal;
+			},
 			getFood() {
 				this.$http
 					.get("http://jz.jec.ac.jp/innovative/menu.php")
@@ -73,16 +107,18 @@
 						);
 						for (var c = 0; c < foodData.length; c++) {
 							var category = foodData[c].m_category;
-							if (category === "主菜") {
-								foodMainDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" alt="${foodData[c].m_name}"/></label></li>`;
-							} else if (category === "副菜") {
-								foodSideDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" alt="${foodData[c].m_name}"/></label></li>`;
+							var daily = foodData[c].m_default;
+							if (category === "主菜" && daily == 1) {
+								foodMainDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
+							} else if (category === "副菜" && daily == 1) {
+								foodSideDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
 							} else if (
-								category === "汁物" ||
-								category === "ごはん" ||
-								category === "デザート"
+								(category === "汁物" ||
+									category === "ごはん" ||
+									category === "デザート") &&
+								daily == 1
 							) {
-								foodSoupRiceAndDeserts.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems" name="${foodData[c].m_name}"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" alt="${foodData[c].m_name}"/></label></li>`;
+								foodSoupRiceAndDeserts.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems" name="${foodData[c].m_name}"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
 							}
 						}
 						this.addToPlate();
@@ -95,33 +131,47 @@
 				let foodItems = document.querySelectorAll(".foodItemsImg");
 				for (var i = 0; i < foodItems.length; i++) {
 					foodItems[i].addEventListener("click", e => {
-						this.todayMenu.push(e.target.src);
+						this.selectedFood.push({
+							src: e.target.src,
+							id: e.target.alt,
+							name: e.target.dataset.name,
+							red: Number(e.target.dataset.red),
+							yellow: Number(e.target.dataset.yellow),
+							green: Number(e.target.dataset.green),
+							redcalorie: Number(e.target.dataset.redcalorie),
+							yellowcalorie: Number(e.target.dataset.yellowcalorie),
+							greencalorie: Number(e.target.dataset.greencalorie)
+						});
 					});
 				}
 			},
 			removeFromPlate(index) {
-				this.todayMenu.splice(index, 1);
+				this.selectedFood.splice(index, 1);
 			},
 			addFood() {
 				this.foodCount += 1;
+			},
+			selectFood(SelectedFood) {
+				this.currentFood = SelectedFood;
 			}
 		},
-		created() {
+		mounted() {
 			this.getFood();
-		},
-		computed: {
-			randomFood() {
-				return this.$store.state.food.mainDish.m_name;
-			}
 		}
 	};
 </script>
 
 <style lang="scss" scoped>
+	.overlay {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgb(255, 255, 255);
+		z-index: 999;
+	}
 	#food {
-		position: relative;
-		width: 100vw;
-
 		.buttons {
 			border-radius: 16px;
 			padding: 10px 20px;
@@ -161,7 +211,6 @@
 		height: 250px;
 		border-radius: 16px 16px 0 0;
 		padding-bottom: 30px;
-		// display: none;
 		position: fixed;
 		bottom: 10%;
 		width: 100%;
@@ -225,6 +274,36 @@
 				color: #ff8f90;
 				font-size: 25px;
 			}
+		}
+	}
+
+	#oneDay {
+		width: 90%;
+		margin: 30px auto 0;
+		background: #f1c3c3;
+
+		div {
+			width: 80%;
+			margin: 10px auto;
+			padding: 10px 0;
+		}
+
+		h3 {
+			margin: 10px 0;
+		}
+
+		h3 span {
+			text-align: right;
+		}
+
+		p {
+			width: 100%;
+			margin: 10px 0;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+		p span {
+			font-size: 18px;
 		}
 	}
 </style>

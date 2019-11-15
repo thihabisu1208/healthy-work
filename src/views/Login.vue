@@ -3,16 +3,15 @@
 		<h1>HealthyWork</h1>
 		<div id="loginForm">
 			<h2>ログイン</h2>
-			<form method="POST" action="http://jz.jec.ac.jp/innovative/e_login.php">
-				<label for="username">社員 ID</label>
-				<input type="text" name="username" v-model="employee.e_id" />
-				<label for="password">パスワード</label>
-				<input type="password" name="password" v-model="employee.e_password" />
-				{{ employee.e_password }}
+			<div>
+				<label for="e_id">社員 ID</label>
+				<input type="text" name="e_id" v-model="employee.e_id" />
+				<label for="e_password">パスワード</label>
+				<input type="password" name="e_password" v-model="employee.e_password" />
 				<p>
 					<input type="submit" value="ログイン" @click.prevent="login()" />
 				</p>
-			</form>
+			</div>
 		</div>
 	</div>
 </template>
@@ -30,30 +29,31 @@
 		},
 		methods: {
 			login() {
-				this.$emit("authenticated", true);
-				this.$router.replace({ name: "foodmenu" });
-				document.body.style.background = "#fff";
-				// var logForm = this.toFormData(this.employee);
-				// const options = {
-				// 	method: "POST",
-				// 	headers: { "content-type": "application/form-data" },
-				// 	data: logForm,
-				// 	url: "http://jz.jec.ac.jp/innovative/e_login.php"
-				// 	// url: "https://www.google.com/"
-				// };
-				// this.$http
-				// 	.post(options)
-				// 	.then(response => {
-				// 		console.log(response.data);
-
-				// this.$emit("authenticated", true);
-				// this.$router.replace({ name: "foodmenu" });
-
-				// document.body.style.background = "#fff";
-				// })
-				// .catch(err => {
-				// 	console.log(err.message);
-				// });
+				var logForm = this.toFormData(this.employee);
+				// this.$store
+				// 	.dispatch("login", { logForm })
+				// 	.then(function() {
+				// 		this.$router.replace({ name: "foodmenu" });
+				// 		document.body.style.background = "#fff";
+				// 	})
+				// 	.catch(err => console.log(err));
+				this.$http
+					.post("http://jz.jec.ac.jp/innovative/e_login.php", logForm)
+					.then(response => {
+						this.employee = response.data;
+						const token = response.data.jwt;
+						const user = response.data.e_id;
+						localStorage.setItem("user", user);
+						localStorage.setItem("token", token);
+						this.$http.defaults.headers.common["Authorization"] = token;
+						this.$emit("authenticated", true);
+						this.$router.replace({ name: "foodmenu" });
+						document.body.style.background = "#fff";
+					})
+					.catch(err => {
+						console.log(err);
+						localStorage.removeItem("token");
+					});
 			},
 			toFormData: function(obj) {
 				let formData = new FormData();

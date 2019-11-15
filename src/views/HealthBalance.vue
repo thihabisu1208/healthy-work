@@ -1,15 +1,35 @@
 <template>
 	<div id="healthbalance">
 		<Header headerName="食事バランス" />
-		<Chart />
+		<h1>
+			{{ today.getFullYear() }}年 {{ today.getMonth() + 1 }}月
+			{{ today.getDate() }}日
+		</h1>
+		<Chart
+			class="charts"
+			:todayChartYellowData="todayChartYellowData"
+			:todayChartRedData="todayChartRedData"
+			:todayChartGreenData="todayChartGreenData"
+			:options="options"
+		/>
+		<div v-if="commonFood.length === 0" class="noMenu">
+			<p>食事の登録がありません</p>
+		</div>
 		<div id="selected">
 			<h2>食べたご飯</h2>
 			<div class="food">
-				<div v-for="food in foods" :key="food.id">
+				<div v-for="food in commonFood" :key="food.m_id">
 					<div class="foodImage">
-						<img style="display: inline" :src="'/assets/img/food/' + food.id + '.jpg'" />
+						<p>
+							<img
+								style="display: inline"
+								:src="
+                  'http://jz.jec.ac.jp/innovative/jpg/' + food.m_id + '.jpg'
+                "
+							/>
+						</p>
+						<p>{{ food.m_name }}</p>
 					</div>
-					<p>{{ food.name }}</p>
 				</div>
 			</div>
 		</div>
@@ -17,21 +37,42 @@
 			<h2>栄養点数</h2>
 		</div>
 		<div id="explain">
-			<p>
-				<span>血液や筋肉を作る</span>
-				<span>{{ getTotalRed }} 点</span>
-				<span>396/400 kcal</span>
-			</p>
-			<p>
-				<span>体の調子を整える</span>
-				<span>{{ getTotalGreen }} 点</span>
-				<span>124/240 kcal</span>
-			</p>
-			<p>
-				<span>力や体温となる</span>
-				<span>{{ getTotalYellow }} 点</span>
-				<span>70/80 kcal</span>
-			</p>
+			<div>
+				<p>
+					<img src="/assets/img/red.png" alt />
+				</p>
+				<p>
+					<span>血液や筋肉を作る</span>
+					<span>
+						<span>{{ getTotalRed }} 点</span>
+						<span>{{ getRed }}/80 kcal</span>
+					</span>
+				</p>
+			</div>
+			<div>
+				<p>
+					<img src="/assets/img/green.png" alt />
+				</p>
+				<p>
+					<span>体の調子を整える</span>
+					<span>
+						<span>{{ getTotalGreen }} 点</span>
+						<span>{{ getGreen }}/240 kcal</span>
+					</span>
+				</p>
+			</div>
+			<div>
+				<p>
+					<img src="/assets/img/yellow.png" alt />
+				</p>
+				<p>
+					<span>力や体温となる</span>
+					<span>
+						<span>{{ getTotalYellow }} 点</span>
+						<span>{{ getYellow }}/400 kcal</span>
+					</span>
+				</p>
+			</div>
 		</div>
 		<div id="oneDay">
 			<div>
@@ -57,37 +98,107 @@
 		name: "healthbalance",
 		data() {
 			return {
-				foods: []
+				foods: [],
+				user: {
+					e_id: localStorage.getItem("user")
+				},
+				foodImage: [],
+				today: new Date(),
+				options: {
+					legend: {
+						display: false
+					}
+				}
 			};
 		},
 		components: {
 			Header,
 			Chart
 		},
-		computed: {
+		methods: {
 			getTodayFood() {
-				this.$http
-					.get("/assets/js/nut.json")
+				var logForm = this.toFormData(this.user);
+				this.$http({
+					method: "POST",
+					url: "http://jz.jec.ac.jp/innovative/showTodayRecord.php",
+					data: logForm
+				})
 					.then(response => {
-						var foodData = response.data;
-						this.foods = foodData;
+						this.foodImage = response.data.menu;
 					})
 					.catch(err => {
 						console.log(err);
 					});
 			},
-			getTotalRed() {
-				return this.foods.reduce((acc, food) => acc + food.red, 0);
+			showFoodData() {
+				this.$http({
+					method: "GET",
+					url: "http://jz.jec.ac.jp/innovative/menu.php"
+				})
+					.then(response => {
+						this.foods = response.data;
+					})
+					.catch(err => console.log(err));
 			},
-			getTotalGreen() {
-				return this.foods.reduce((acc, food) => acc + food.green, 0);
-			},
-			getTotalYellow() {
-				return this.foods.reduce((acc, food) => acc + food.yellow, 0);
+			toFormData: function(obj) {
+				let formData = new FormData();
+				for (let key in obj) {
+					formData.append(key, obj[key]);
+				}
+				return formData;
 			}
 		},
 		created() {
-			this.getTodayFood;
+			this.getTodayFood();
+			this.showFoodData();
+		},
+		computed: {
+			commonFood() {
+				return this.foods.filter(el => {
+					return this.foodImage.some(f => {
+						return f.m_id === el.m_id;
+					});
+				});
+			},
+			todayChartYellowData() {
+				return [0, 0, this.getYellow, this.getYellow - 400];
+			},
+			todayChartRedData() {
+				return [this.getRed, 0, 0, this.getRed - 240];
+			},
+			todayChartGreenData() {
+				return [0, this.getGreen, 0, this.getGreen - 80];
+			},
+			getRed() {
+				return this.commonFood.reduce((acc, food) => acc + food.m_redcalorie, 0);
+			},
+			getTotalRed() {
+				return Math.fround(
+					this.commonFood.reduce((result, food) => result + food.m_red, 0)
+				).toFixed(2);
+			},
+			getGreen() {
+				return this.commonFood.reduce(
+					(acc, food) => acc + food.m_greencalorie,
+					0
+				);
+			},
+			getTotalGreen() {
+				return Math.fround(
+					this.commonFood.reduce((result, food) => result + food.m_green, 0)
+				).toFixed(2);
+			},
+			getYellow() {
+				return this.commonFood.reduce(
+					(acc, food) => acc + food.m_yellowcalorie,
+					0
+				);
+			},
+			getTotalYellow() {
+				return Math.fround(
+					this.commonFood.reduce((result, food) => result + food.m_yellow, 0)
+				).toFixed(2);
+			}
 		}
 	};
 </script>
@@ -95,54 +206,102 @@
 <style lang="scss" scoped>
 	#healthbalance {
 		margin: 100px 0 15vh;
+
+		h1 {
+			margin: 30px 0 15px;
+			text-align: center;
+			font-size: 22px;
+			font-weight: normal;
+		}
+
+		.charts {
+			margin: 0 auto !important;
+			width: 70% !important;
+			height: auto !important;
+		}
+
 		h2 {
 			position: relative;
 			font-weight: normal;
 			margin-left: 3%;
 		}
 
+		.noMenu {
+			position: absolute;
+			top: 32%;
+			left: 25%;
+		}
+
 		.food {
 			width: 100%;
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			margin: 0 5px 0;
-			grid-gap: 15px;
+			margin: 0 auto;
+			grid-gap: 0 10px;
 			div {
 				.foodImage {
+					p {
+						text-align: center;
+					}
 					img {
-						width: 100px;
+						max-width: 100px;
+						border-radius: 16px;
 					}
 				}
 			}
 		}
 
 		#explain {
-			margin-left: 5%;
+			div {
+				margin: 0 auto;
+				width: 80%;
+				display: grid;
+				grid-template-columns: 0.4fr 1fr;
+			}
+
 			p {
+				margin: 5px auto;
 				width: 100%;
 				display: grid;
-				grid-template-columns: 1fr 0.4fr 0.6fr;
+				grid-template-rows: 1fr 1fr;
 				span {
 					display: flex;
 					align-items: center;
 					justify-content: bottom;
 				}
-				span:nth-of-type(2) {
+
+				span span:nth-of-type(1) {
 					font-size: 20px;
 				}
-				span:nth-of-type(3) {
-					color: black;
-					text-align: right;
+
+				span span:nth-of-type(2) {
+					padding-left: 10px;
+					font-size: 15px;
 				}
 			}
+
 			p:nth-of-type(1) {
-				color: #e72059;
+				display: flex;
+				align-items: center;
+				justify-content: bottom;
 			}
-			p:nth-of-type(2) {
-				color: #92e19a;
+
+			div:nth-of-type(1) {
+				p span:nth-of-type(1) {
+					color: #e72059;
+				}
 			}
-			p:nth-of-type(3) {
-				color: #fede8a;
+
+			div:nth-of-type(2) {
+				p span:nth-of-type(1) {
+					color: #92e19a;
+				}
+			}
+
+			div:nth-of-type(3) {
+				p span:nth-of-type(1) {
+					color: #fede8a;
+				}
 			}
 		}
 

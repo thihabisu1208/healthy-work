@@ -7,6 +7,7 @@ import Setting from './views/Setting.vue'
 import Nutrition from './views/Nutrition.vue'
 import Profile from './views/Profile.vue'
 import HealthReport from './views/HealthReport.vue'
+import AddHealthReport from './views/AddHealthReport.vue'
 import Login from "./views/Login.vue"
 
 Vue.use(Router)
@@ -60,6 +61,11 @@ const router = new Router({
       path: '/healthreport',
       name: 'healthreport',
       component: HealthReport
+    },
+    {
+      path: '/addhealthreport',
+      name: 'addhealthreport',
+      component: AddHealthReport
     }
   ]
 })

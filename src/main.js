@@ -25,13 +25,15 @@ import {
   FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome'
 import router from './router'
+import VueTabs from 'vue-nav-tabs'
+import 'vue-nav-tabs/themes/vue-tabs.css'
 
 library.add(faArrowLeft, faBalanceScale, faUtensils, faCalendarAlt, faCog, faNotesMedical,
   faAddressCard,
   faUserCircle, faTimes, faPlusCircle, faMinusCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-Vue.use(VueCharts, VueAxios, axios)
+Vue.use(VueCharts, VueAxios, axios, VueTabs)
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false

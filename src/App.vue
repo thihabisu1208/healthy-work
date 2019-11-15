@@ -48,6 +48,9 @@
 		name: "App",
 		data() {
 			return {
+				user: null,
+				loading: false,
+				inititated: false,
 				authenticated: false
 			};
 		},
@@ -59,9 +62,6 @@
 		methods: {
 			setAuthenticated(status) {
 				this.authenticated = status;
-			},
-			logout() {
-				this.authenticated = false;
 			}
 		}
 	};

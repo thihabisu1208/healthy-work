@@ -1,36 +1,32 @@
 import axios from 'axios'
 
 const state = {
-    mainDish: [],
-    sideDish: [],
-    otherDish: [],
+    foods: []
 };
 
-const getters = {
-    mainDish: (state) => state.mainDish,
-    sideDish: (state) => state.sideDish,
-    otherDish: (state) => state.otherDish
-}
+const getters = {}
 
 const actions = {
-    async fetchFoods({
+    getFood({
         commit
     }) {
-        const response = await axios.get('http://jz.jec.ac.jp/innovative/menu.php');
-        for (var i = 0; i < response.data.length; i++) {
-            if (response.data[i].m_category === "主菜") {
-                this.state.mainDish = response.data;
-                console.log(this.state.mainDish);
-            } else if (response.data[i].m_category === "副菜") {
-                console.log(response.data[i].m_name);
-            } else if (response.data[i].m_category === "ごはん" || response.data[i].category === "デザート") {
-                console.log(response.data[i].m_name);
-            }
-        }
+        axios
+            .get("http://jz.jec.ac.jp/innovative/menu.php")
+            .then(response => {
+                let foods = response.data;
+                commit('SET_FOOD', foods);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 }
 
-const mutations = {}
+const mutations = {
+    SET_FOOD(state, foods) {
+        state.foods = foods;
+    }
+};
 
 export default {
     state,
