@@ -53,14 +53,20 @@
 							<font-awesome-icon
 								class="foodCountIcons"
 								icon="plus-circle"
-								@click="addFood(); selectFood(selectedFood)"
+								@click="
+									addFood();
+									selectFood(selectedFood);
+								"
 							/>
 						</div>
 					</div>
 				</li>
 			</ul>
 			<p>
-				<a @click="showModal(); selectFood(selectedFood)">栄養を見る</a>
+				<a @click="
+						showModal();
+						selectFood(selectedFood);
+					">栄養を見る</a>
 			</p>
 			<div class="overlay" v-if="showSelectedFoodModal == true">
 				<SelectedFood @clicked="showSelectedFoodModal = false" :selectedFood="this.currentFood" />

@@ -1,6 +1,7 @@
 <template>
 	<div class="selectedFood">
 		<form method="POST" action="http://jz.jec.ac.jp/innovative/addRecord.php" id="nutritionData">
+			<!-- <div id="nutritionData"> -->
 			<div id="selected">
 				<div class="selectedHeader">
 					<h2 class="icons">
@@ -62,8 +63,10 @@
 				</div>
 			</div>
 			<p id="save">
+				<!-- <input type="submit" @click="submit" value="お昼ご飯を登録" /> -->
 				<input type="submit" value="お昼ご飯を登録" />
 			</p>
+			<!-- </div> -->
 		</form>
 	</div>
 </template>
@@ -75,18 +78,62 @@
 			showSelectedFoodModal: Boolean
 		},
 		data() {
+			let today = JSON.stringify(new Date()).slice(1, 11);
+			let user = localStorage.getItem("user");
+			let food = this.selectedFood.reduce(
+				(result, food) => [...result, food.id],
+				[]
+			);
 			return {
 				today: new Date(),
 				foodIds: [],
-				user: localStorage.getItem("user")
+				user: localStorage.getItem("user"),
+				sendFood: {
+					l_date: today,
+					e_id: user,
+					m_id: food
+				}
 			};
 		},
 		methods: {
 			closeModal() {
 				this.$emit("clicked");
+			},
+			submit() {
+				let foodForm = this.toFormData(this.sendFood);
+				// let options = {
+				// 	method: "POST",
+				// 	url: "http://jz.jec.ac.jp/innovative/addRecord.php",
+				// 	data: foodForm
+				// };
+				this.$http
+					.post("http://jz.jec.ac.jp/innovative/addRecord.php", foodForm)
+					.then(response => {
+						console.log(response.data);
+						// this.$router.push("/healthbalance");
+					})
+					.catch(err => console.log(err));
+			},
+			toFormData: function(obj) {
+				let formData = new FormData();
+				for (let key in obj) {
+					formData.append(key, obj[key]);
+				}
+				return formData;
 			}
 		},
+		created() {
+			console.log(this.sendFood);
+			console.log(this.getFoodId);
+			console.log(this.toFormData(this.sendFood));
+		},
 		computed: {
+			getFoodId() {
+				return this.selectedFood.reduce(
+					(result, food) => [...result, food.id],
+					[]
+				);
+			},
 			getRed() {
 				return this.selectedFood.reduce(
 					(result, food) => result + food.redcalorie,

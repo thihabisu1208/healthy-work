@@ -12,13 +12,30 @@ import Login from "./views/Login.vue"
 
 Vue.use(Router)
 
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')
+}
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
       path: '/',
       redirect: {
-        name: "home"
+        name: "login",
+        component: Login
       }
     },
     {
@@ -28,7 +45,7 @@ const router = new Router({
     }, {
       path: '/healthbalance',
       name: 'heathbalance',
-      component: HealthBalance
+      component: HealthBalance,
     },
     {
       path: '/foodmenu',

@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<div id="nav">
-			<nav id="nav" v-if="authenticated">
+			<nav id="nav" v-if="localUser">
 				<ul>
 					<li>
 						<router-link to="/healthbalance">
@@ -37,8 +37,10 @@
 					</li>
 				</ul>
 			</nav>
+			<nav v-else></nav>
 			<!-- <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> -->
 		</div>
+		<!-- <router-view /> -->
 		<router-view @authenticated="setAuthenticated" />
 	</div>
 </template>
@@ -49,15 +51,17 @@
 		data() {
 			return {
 				user: null,
+				localUser: localStorage.user,
 				loading: false,
 				inititated: false,
 				authenticated: false
 			};
 		},
 		mounted() {
-			if (!this.authenticated) {
-				this.$router.replace({ name: "login" });
-			}
+			// if (!this.authenticated) {
+			// 	this.$router.replace({ name: 'login' });
+			// }
+			// document.body.style.background = "#fff";
 		},
 		methods: {
 			setAuthenticated(status) {
@@ -70,6 +74,14 @@
 <style lang="scss">
 	@import url("https://fonts.googleapis.com/css?family=Sawarabi+Mincho");
 	@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c&display=swap");
+	// .fade-enter-active,
+	// .fade-leave-active {
+	// 	transition: opacity 0.5s;
+	// }
+	// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+	// 	opacity: 0;
+	// }
+
 	body {
 		width: 100vw;
 		background: #ff8f90;

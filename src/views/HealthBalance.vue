@@ -24,8 +24,8 @@
 							<img
 								style="display: inline"
 								:src="
-                  'http://jz.jec.ac.jp/innovative/jpg/' + food.m_id + '.jpg'
-                "
+									'http://jz.jec.ac.jp/innovative/jpg/' + food.m_id + '.jpg'
+								"
 							/>
 						</p>
 						<p>{{ food.m_name }}</p>
@@ -45,7 +45,7 @@
 					<span>血液や筋肉を作る</span>
 					<span>
 						<span>{{ getTotalRed }} 点</span>
-						<span>{{ getRed }}/80 kcal</span>
+						<span>{{ getRed }}/160 kcal</span>
 					</span>
 				</p>
 			</div>
@@ -57,7 +57,7 @@
 					<span>体の調子を整える</span>
 					<span>
 						<span>{{ getTotalGreen }} 点</span>
-						<span>{{ getGreen }}/240 kcal</span>
+						<span>{{ getGreen }}/80 kcal</span>
 					</span>
 				</p>
 			</div>
@@ -164,7 +164,7 @@
 				return [0, 0, this.getYellow, this.getYellow - 400];
 			},
 			todayChartRedData() {
-				return [this.getRed, 0, 0, this.getRed - 240];
+				return [this.getRed, 0, 0, this.getRed - 160];
 			},
 			todayChartGreenData() {
 				return [0, this.getGreen, 0, this.getGreen - 80];
@@ -205,7 +205,10 @@
 
 <style lang="scss" scoped>
 	#healthbalance {
-		margin: 100px 0 15vh;
+		margin: 70px 0;
+		background: #fff;
+		height: 100%;
+		padding: 20px 0;
 
 		h1 {
 			margin: 30px 0 15px;
@@ -228,7 +231,7 @@
 
 		.noMenu {
 			position: absolute;
-			top: 32%;
+			top: 35%;
 			left: 25%;
 		}
 

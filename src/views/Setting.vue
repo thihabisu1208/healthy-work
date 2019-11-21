@@ -34,12 +34,13 @@
 		},
 		methods: {
 			logout() {
+				document.body.style.background = "#ff8f90";
 				this.$emit("authenticated", false);
 				localStorage.removeItem("token");
 				localStorage.removeItem("user");
 				delete this.$http.defaults.headers.common["Authorization"];
-				document.body.style.background = "#ff8f90";
 				this.$router.push({ name: "login" });
+				location.reload();
 			}
 		}
 	};
@@ -47,7 +48,10 @@
 
 <style lang="scss" scoped>
 	#setting {
-		margin: 50px 0 15vh;
+		margin: 70px 0;
+		background: #fff;
+		height: 100vh;
+		padding: 20px 0;
 	}
 
 	#settingData {

@@ -38,8 +38,21 @@ Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 
+// const token = localStorage.getItem('token')
+// if (token) {
+//   axios.defaults.headers.common['Authorization'] = token
+// }
+
+const user = localStorage.getItem('user')
+
 new Vue({
   store,
   router,
+  created() {
+    //redirect if user not logged in
+    if (user == '') {
+      this.$router.push("/login");
+    }
+  },
   render: h => h(App)
 }).$mount('#app')

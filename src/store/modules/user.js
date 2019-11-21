@@ -8,7 +8,8 @@ const api = axios.create({
 export default {
     state: {
         status: '',
-        token: localStorage.getItem('token') || ''
+        token: localStorage.getItem('token') || '',
+        user: ''
     },
     getters: {
         isLoggedIn: state => !!state.token,
@@ -29,7 +30,11 @@ export default {
         logout(state) {
             state.status = ''
             state.token = ''
-        }
+        },
+        SET_USER_DATA(state, userData) {
+            state.user = userData
+            localStorage.setItem('user', JSON.stringify(userData))
+        },
     },
     actions: {
         login({

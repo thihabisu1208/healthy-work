@@ -48,6 +48,7 @@
 						this.$http.defaults.headers.common["Authorization"] = token;
 						this.$emit("authenticated", true);
 						this.$router.replace({ name: "foodmenu" });
+						location.reload();
 						document.body.style.background = "#fff";
 					})
 					.catch(err => {
