@@ -79,7 +79,7 @@
 		},
 		data() {
 			let today = JSON.stringify(new Date()).slice(1, 11);
-			let user = localStorage.getItem("user");
+			let user = localStorage.getItem("employee");
 			let food = this.selectedFood.reduce(
 				(result, food) => [...result, food.id],
 				[]
@@ -87,7 +87,7 @@
 			return {
 				today: new Date(),
 				foodIds: [],
-				user: localStorage.getItem("user"),
+				user: localStorage.getItem("employee"),
 				sendFood: {
 					l_date: today,
 					e_id: user,

@@ -45,7 +45,7 @@
 		data() {
 			return {
 				profile: [],
-				user: localStorage.getItem("user")
+				user: localStorage.getItem("employee")
 			};
 		},
 		methods: {

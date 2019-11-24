@@ -32,13 +32,9 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
-      path: '/',
-      redirect: {
-        name: "login",
-        component: Login
-      }
-    },
-    {
+      path: "/",
+      redirect: "/login"
+    }, {
       path: "/login",
       name: "login",
       component: Login

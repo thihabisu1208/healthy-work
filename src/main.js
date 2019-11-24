@@ -34,7 +34,11 @@ library.add(faArrowLeft, faBalanceScale, faUtensils, faCalendarAlt, faCog, faNot
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueCharts, VueAxios, axios, VueTabs)
+
 Vue.prototype.$http = axios
+
+// Vue.prototype = this
+// this.$http = axios
 
 Vue.config.productionTip = false
 

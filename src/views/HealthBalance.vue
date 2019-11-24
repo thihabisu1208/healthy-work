@@ -100,7 +100,7 @@
 			return {
 				foods: [],
 				user: {
-					e_id: localStorage.getItem("user")
+					e_id: localStorage.getItem("employee")
 				},
 				foodImage: [],
 				today: new Date(),

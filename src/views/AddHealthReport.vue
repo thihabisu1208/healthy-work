@@ -277,7 +277,7 @@
 				lastYear: "2018年",
 				thisYear: "2019年",
 				user: {
-					e_id: localStorage.getItem("user")
+					e_id: localStorage.getItem("employee")
 				}
 			};
 		}

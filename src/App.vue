@@ -51,7 +51,7 @@
 		data() {
 			return {
 				user: null,
-				localUser: localStorage.user,
+				localUser: localStorage.employee,
 				loading: false,
 				inititated: false,
 				authenticated: false
@@ -103,7 +103,7 @@
 
 		ul {
 			margin: 0;
-			padding: 10px;
+			padding: 5px 0;
 			list-style: none;
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
@@ -111,6 +111,7 @@
 
 		ul li {
 			margin: 0;
+			padding: 0;
 		}
 
 		ul li a {
@@ -120,20 +121,30 @@
 
 		ul li .router-link-exact-active {
 			color: #ff8f90;
+
+			.icons {
+				font-size: 25px;
+			}
+			span {
+				font-size: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 		}
 
 		ul li .icons {
 			text-align: center;
 			padding: 0;
 			margin: 0;
-			font-size: 25px;
+			font-size: 30px;
 		}
 
 		ul li span {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 13px;
+			display: none;
+			// display: flex;
+			// align-items: center;
+			// justify-content: center;
 		}
 	}
 

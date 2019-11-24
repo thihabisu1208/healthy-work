@@ -1,5 +1,4 @@
-// module.exports = {
-//     devServer: {
-//         proxy: 'http://jz.jec.ac.jp/',
-//     }
-// }
+module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ?
+        './' : '/'
+}

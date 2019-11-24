@@ -479,7 +479,7 @@
 				thisYear: "2019",
 				mark: "B",
 				user: {
-					e_id: localStorage.getItem("user")
+					e_id: localStorage.getItem("employee")
 				},
 				medicalCheckupThisYear: [],
 				medicalCheckLastYear: []

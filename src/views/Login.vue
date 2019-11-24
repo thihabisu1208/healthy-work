@@ -43,7 +43,7 @@
 						this.employee = response.data;
 						const token = response.data.jwt;
 						const user = response.data.e_id;
-						localStorage.setItem("user", user);
+						localStorage.setItem("employee", user);
 						localStorage.setItem("token", token);
 						this.$http.defaults.headers.common["Authorization"] = token;
 						this.$emit("authenticated", true);
