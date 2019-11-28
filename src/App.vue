@@ -51,7 +51,7 @@
 		data() {
 			return {
 				user: null,
-				localUser: localStorage.employee,
+				localUser: localStorage.token,
 				loading: false,
 				inititated: false,
 				authenticated: false

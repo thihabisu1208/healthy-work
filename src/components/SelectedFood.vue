@@ -184,6 +184,7 @@
 		display: none;
 	}
 	.selectedFood {
+		z-index: 1000;
 		margin: 70px 0;
 	}
 
@@ -268,16 +269,21 @@
 		}
 
 		#save {
-			width: 60%;
-			margin: 20px auto;
-			background: #ff8f90;
 			text-align: center;
-			padding: 15px;
-			border-radius: 20px;
 			input {
-				font-size: 22px;
-				text-decoration: none;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				outline: none;
+
+				font-size: 20px;
+				padding: 10px 0;
+				margin: 10px auto 20px;
+				width: 60%;
+				text-align: center;
+				background: #ff8f90;
 				color: #fff;
+				border-radius: 16px;
 			}
 		}
 	}

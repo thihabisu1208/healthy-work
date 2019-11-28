@@ -57,8 +57,11 @@
 				this.selectedEvent = event;
 				this.showDialog = true;
 				// alert(event.start);
-				this.$router.push("/healthbalance");
-
+				localStorage.setItem("todayDate", event.start);
+				this.$router.push({
+					name: "heathbalanceday",
+					params: { date: event.start }
+				});
 				e.stopPropagation();
 			},
 			getEvents() {
@@ -91,7 +94,7 @@
 					start: key,
 					end: key,
 					allDay: true,
-					content: `<div><h2>食事の登録があります</h2><img width='200px' style="margin: 10px auto;"src='/assets/img/chart.png' /><p><a href style="margin: 10px auto; text-decoration: none; color: #fff; padding: 10px 20px; background: #FF8F90; border-radius: 16px;">詳しく見る</a></p></div>`,
+					content: `<div><h2>食事の登録があります</h2><img width='200px' style="margin: 10px auto;"src='/assets/img/chart.png' /><p style="width: 80%; margin: 10px auto; text-decoration: none; color: #fff; padding: 10px 20px; background: #FF8F90; border-radius: 16px;">この日の栄養を詳しく見る</p></div>`,
 					count: counts[key]
 				}));
 			},

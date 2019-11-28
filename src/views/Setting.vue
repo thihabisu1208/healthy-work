@@ -18,7 +18,7 @@
 			</div>
 
 			<p id="logout" @click="logout()">
-				<button>ログアウト</button>
+				<input type="submit" value="ログアウト" />
 			</p>
 		</div>
 	</div>
@@ -37,7 +37,7 @@
 				document.body.style.background = "#ff8f90";
 				this.$emit("authenticated", false);
 				localStorage.removeItem("token");
-				localStorage.removeItem("user");
+				localStorage.removeItem("employee");
 				delete this.$http.defaults.headers.common["Authorization"];
 				this.$router.push({ name: "login" });
 				location.reload();
@@ -48,7 +48,7 @@
 
 <style lang="scss" scoped>
 	#setting {
-		margin: 70px 0;
+		margin: 60px 0;
 		background: #fff;
 		height: 100vh;
 		padding: 20px 0;
@@ -83,17 +83,21 @@
 	}
 
 	#logout {
-		border-radius: 16px;
 		text-align: center;
-		margin: 100px auto 0;
-		width: 50%;
-		background: #34495e;
-		padding: 10px;
+		input {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			outline: none;
 
-		button {
 			font-size: 20px;
-			text-decoration: none;
+			padding: 10px 0;
+			margin: 30px auto 20px;
+			width: 60%;
+			text-align: center;
+			background: #34495e;
 			color: #fff;
+			border-radius: 16px;
 		}
 	}
 </style>

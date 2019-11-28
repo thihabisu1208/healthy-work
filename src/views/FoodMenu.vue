@@ -20,7 +20,7 @@
 
 <style lang="scss" scoped>
 	#foodmenu {
-		margin: 70px 0;
+		margin: 60px 0;
 		background: #fff;
 		height: 100%;
 		padding: 20px 0 45vh;

@@ -47,45 +47,19 @@
 				<li v-for="(menu, index) in selectedFood" :key="menu.m_id">
 					<div>
 						<img style="display: inline" :src="menu.src" @click="removeFromPlate(index)" />
-						<div class="foodCount">
-							<font-awesome-icon class="foodCountIcons" icon="minus-circle" />
-							<span>{{ foodCount }}</span>
-							<font-awesome-icon
-								class="foodCountIcons"
-								icon="plus-circle"
-								@click="
-									addFood();
-									selectFood(selectedFood);
-								"
-							/>
-						</div>
 					</div>
 				</li>
 			</ul>
 			<p>
-				<a @click="
-						showModal();
-						selectFood(selectedFood);
-					">栄養を見る</a>
+				<router-link :to="{ name: 'selectedfood', params: { currentFood: this.selectedFood}}">栄養を見る</router-link>
 			</p>
-			<div class="overlay" v-if="showSelectedFoodModal == true">
-				<SelectedFood @clicked="showSelectedFoodModal = false" :selectedFood="this.currentFood" />
-			</div>
-			<!-- <p>
-				<router-link to="/nutrition">栄養を見る</router-link>
-			</p>-->
 		</div>
 	</div>
 </template>
 
 <script>
-	import SelectedFood from "@/components/SelectedFood";
-
 	export default {
 		name: "food",
-		components: {
-			SelectedFood
-		},
 		data() {
 			return {
 				selectedFood: [],
@@ -139,7 +113,7 @@
 					foodItems[i].addEventListener("click", e => {
 						this.selectedFood.push({
 							src: e.target.src,
-							id: e.target.alt,
+							m_id: e.target.alt,
 							name: e.target.dataset.name,
 							red: Number(e.target.dataset.red),
 							yellow: Number(e.target.dataset.yellow),
@@ -154,9 +128,9 @@
 			removeFromPlate(index) {
 				this.selectedFood.splice(index, 1);
 			},
-			addFood() {
-				this.foodCount += 1;
-			},
+			// addFood() {
+			// 	this.foodCount += 1;
+			// },
 			selectFood(SelectedFood) {
 				this.currentFood = SelectedFood;
 			}
@@ -169,6 +143,8 @@
 
 <style lang="scss" scoped>
 	.overlay {
+		width: 100%;
+		height: 100vh;
 		position: fixed;
 		top: 0;
 		bottom: 0;
@@ -178,6 +154,7 @@
 		z-index: 999;
 	}
 	#food {
+		position: relative;
 		.buttons {
 			border-radius: 16px;
 			padding: 10px 20px;
@@ -214,11 +191,12 @@
 	}
 
 	#menuImage {
+		border: 1px solid rgb(158, 149, 149);
 		height: 250px;
 		border-radius: 16px 16px 0 0;
-		padding-bottom: 30px;
+		padding-bottom: 10px;
 		position: fixed;
-		bottom: 10%;
+		bottom: 8%;
 		width: 100%;
 		overflow-x: auto;
 		background: #f9f9f9;
@@ -253,7 +231,8 @@
 		p {
 			position: fixed;
 			left: 25%;
-			margin: 0 auto;
+			margin: 10px auto;
+			padding: 5px 10px;
 			width: 50%;
 			z-index: 999;
 			font-size: 22px;
@@ -264,7 +243,6 @@
 			a {
 				text-decoration: none;
 				color: #fff;
-				padding: 10px 20px;
 			}
 		}
 

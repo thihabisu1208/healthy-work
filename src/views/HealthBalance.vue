@@ -5,6 +5,7 @@
 			{{ today.getFullYear() }}年 {{ today.getMonth() + 1 }}月
 			{{ today.getDate() }}日
 		</h1>
+		{{ date }}
 		<Chart
 			class="charts"
 			:todayChartYellowData="todayChartYellowData"
@@ -96,6 +97,7 @@
 
 	export default {
 		name: "healthbalance",
+		props: ["date"],
 		data() {
 			return {
 				foods: [],
@@ -205,7 +207,7 @@
 
 <style lang="scss" scoped>
 	#healthbalance {
-		margin: 70px 0;
+		margin: 60px 0;
 		background: #fff;
 		height: 100%;
 		padding: 20px 0;

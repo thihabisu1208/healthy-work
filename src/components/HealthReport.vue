@@ -458,8 +458,8 @@
 					</span>
 					<p class="notSaved">健康診断データが未登録です</p>
 					<p class="save">
-				<router-link to="/addhealthreport">登録して始める</router-link>
-			</p>
+						<router-link to="/addhealthreport">登録して始める</router-link>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -475,8 +475,6 @@
 				showWeight: false,
 				showBlood: false,
 				showAverage: false,
-				lastYear: "2018",
-				thisYear: "2019",
 				mark: "B",
 				user: {
 					e_id: localStorage.getItem("employee")
@@ -511,6 +509,14 @@
 		},
 		created() {
 			this.getHealthRecord();
+		},
+		computed: {
+			lastYear() {
+				return new Date().getFullYear() - 1;
+			},
+			thisYear() {
+				return new Date().getFullYear();
+			}
 		}
 	};
 </script>
@@ -554,13 +560,13 @@
 	// 	opacity: 0;
 	// }
 	.save {
-		width: 60%;
-		margin: 20px auto;
-		background: #ff8f90;
 		text-align: center;
-		padding: 15px;
-		border-radius: 20px;
 		a {
+			width: 60%;
+			margin: 20px auto;
+			background: #ff8f90;
+			padding: 15px 70px;
+			border-radius: 20px;
 			font-size: 22px;
 			text-decoration: none;
 			color: #fff;
@@ -587,7 +593,7 @@
 			width: 50%;
 			text-align: center;
 			margin: 0;
-			padding: 10px 3px;
+			padding: 10px 0px;
 			border-radius: 50%;
 			font-size: 23px;
 			color: #fff;
@@ -676,9 +682,14 @@
 			width: 60%;
 			grid-template-columns: 0.3fr 1fr;
 
+			p{
+				margin: 10px auto;
+			}
+
 			p:nth-of-type(1) {
 				font-family: Helvetica, Arial, sans-serif;
-				padding: 5px 15px;
+				margin: 13px auto;
+				padding: 10px 16px;
 				border-radius: 50%;
 				color: #fff;
 				font-size: 22px;
@@ -710,6 +721,10 @@
 				&.f {
 					background: #f1687b;
 				}
+			}
+
+			p:nth-of-type(2){
+				padding: 10px 16px;
 			}
 		}
 	}

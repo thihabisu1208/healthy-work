@@ -6,48 +6,49 @@
 			</p>
 		</router-link>
 		<Header headerName="健康診断結果登録" />
+		{{ lastYears }}
 		<vue-tabs>
 			<v-tab :title="this.lastYear">
 				<div class="healthReportData">
 					<form method="POST" action="http://jz.jec.ac.jp/innovative/addMedicalCheckupLastyear.php">
 						<div class="hide">
-							<input type="text" name="e_id" v-model="user.e_id" />
+							<input type="text" name="e_id" v-model="user.e_id" required />
 						</div>
 						<h2>総合判定</h2>
 						<div class="container points">
 							<div>
 								<label for="a">
-									<input type="radio" id="a" name="judgement" value="A" />
+									<input type="radio" id="a" name="judgement" value="A" required />
 									<span>A</span>
 								</label>
 							</div>
 							<div>
 								<label for="b">
-									<input type="radio" id="b" name="judgement" value="B" />
+									<input type="radio" id="b" name="judgement" value="B" required />
 									<span>B</span>
 								</label>
 							</div>
 							<div>
 								<label for="c">
-									<input type="radio" id="c" name="judgement" value="C" />
+									<input type="radio" id="c" name="judgement" value="C" required />
 									<span>C</span>
 								</label>
 							</div>
 							<div>
 								<label for="d">
-									<input type="radio" id="d" name="judgement" value="D" />
+									<input type="radio" id="d" name="judgement" value="D" required />
 									<span>D</span>
 								</label>
 							</div>
 							<div>
 								<label for="e">
-									<input type="radio" id="e" name="judgement" value="E" />
+									<input type="radio" id="e" name="judgement" value="E" required />
 									<span>E</span>
 								</label>
 							</div>
 							<div>
 								<label for="f">
-									<input type="radio" id="f" name="judgement" value="F" />
+									<input type="radio" id="f" name="judgement" value="F" required />
 									<span>F</span>
 								</label>
 							</div>
@@ -57,35 +58,35 @@
 							<div>
 								<label for="height">身長</label>
 								<div>
-									<input type="text" name="height" />
+									<input type="text" name="height" required />
 									<span>cm</span>
 								</div>
 							</div>
 							<div>
 								<label for="weight">体重</label>
 								<div>
-									<input type="text" name="weight" />
+									<input type="text" name="weight" required />
 									<span>kg</span>
 								</div>
 							</div>
 							<div>
 								<label for="AC">腹囲</label>
 								<div>
-									<input type="text" name="AC" />
+									<input type="text" name="AC" required />
 									<span>cm</span>
 								</div>
 							</div>
 							<div>
 								<label for="degreeOfObesity">肥満度</label>
 								<div>
-									<input type="text" name="degreeOfObesity" />
+									<input type="text" name="degreeOfObesity" required />
 									<span>%</span>
 								</div>
 							</div>
 							<div>
 								<label for="BMI">ＢＭＩ</label>
 								<div>
-									<input type="text" name="BMI" />
+									<input type="text" name="BMI" required />
 									<span>pt</span>
 								</div>
 							</div>
@@ -95,14 +96,14 @@
 							<div>
 								<label for="neutralFat">中性脂肪</label>
 								<div>
-									<input type="text" name="neutralFat" />
+									<input type="text" name="neutralFat" required />
 									<span>mg/cll</span>
 								</div>
 							</div>
 							<div>
 								<label for="cholesterol">コレステロール</label>
 								<div>
-									<input type="text" name="cholesterol" />
+									<input type="text" name="cholesterol" required />
 									<span>mg/cll</span>
 								</div>
 							</div>
@@ -112,14 +113,14 @@
 							<div>
 								<label for="maxBloodpressure">最高血圧</label>
 								<div>
-									<input type="text" name="maxBloodpressure" />
+									<input type="text" name="maxBloodpressure" required />
 									<span>mmHg</span>
 								</div>
 							</div>
 							<div>
 								<label for="minBloodpressure">最低血圧</label>
 								<div>
-									<input type="text" name="minBloodpressure" />
+									<input type="text" name="minBloodpressure" required />
 									<span>mmHg</span>
 								</div>
 							</div>
@@ -136,43 +137,43 @@
 				<div class="healthReportData">
 					<form method="POST" action="http://jz.jec.ac.jp/innovative/addMedicalCheckup.php">
 						<div class="hide">
-							<input type="text" name="e_id" v-model="user.e_id" />
+							<input type="text" name="e_id" v-model="user.e_id" required />
 						</div>
 						<h2>総合判定</h2>
 						<div class="container points">
 							<div>
 								<label for="a2">
-									<input type="radio" id="a2" name="judgement" value="A" />
+									<input type="radio" id="a2" name="judgement" value="A" required />
 									<span>A</span>
 								</label>
 							</div>
 							<div>
 								<label for="b2">
-									<input type="radio" id="b2" name="judgement" value="B" />
+									<input type="radio" id="b2" name="judgement" value="B" required />
 									<span>B</span>
 								</label>
 							</div>
 							<div>
 								<label for="c2">
-									<input type="radio" id="c2" name="judgement" value="C" />
+									<input type="radio" id="c2" name="judgement" value="C" required />
 									<span>C</span>
 								</label>
 							</div>
 							<div>
 								<label for="d2">
-									<input type="radio" id="d2" name="judgement" value="D" />
+									<input type="radio" id="d2" name="judgement" value="D" required />
 									<span>D</span>
 								</label>
 							</div>
 							<div>
 								<label for="e2">
-									<input type="radio" id="e2" name="judgement" value="E" />
+									<input type="radio" id="e2" name="judgement" value="E" required />
 									<span>E</span>
 								</label>
 							</div>
 							<div>
 								<label for="f2">
-									<input type="radio" id="f2" name="judgement" value="F" />
+									<input type="radio" id="f2" name="judgement" value="F" required />
 									<span>F</span>
 								</label>
 							</div>
@@ -182,35 +183,35 @@
 							<div>
 								<label for="height">身長</label>
 								<div>
-									<input type="text" name="height" />
+									<input type="text" name="height" required />
 									<span>cm</span>
 								</div>
 							</div>
 							<div>
 								<label for="weight">体重</label>
 								<div>
-									<input type="text" name="weight" />
+									<input type="text" name="weight" required />
 									<span>kg</span>
 								</div>
 							</div>
 							<div>
 								<label for="AC">腹囲</label>
 								<div>
-									<input type="text" name="AC" />
+									<input type="text" name="AC" required />
 									<span>cm</span>
 								</div>
 							</div>
 							<div>
 								<label for="degreeOfObesity">肥満度</label>
 								<div>
-									<input type="text" name="degreeOfObesity" />
+									<input type="text" name="degreeOfObesity" required />
 									<span>%</span>
 								</div>
 							</div>
 							<div>
 								<label for="BMI">ＢＭＩ</label>
 								<div>
-									<input type="text" name="BMI" />
+									<input type="text" name="BMI" required />
 									<span>pt</span>
 								</div>
 							</div>
@@ -220,14 +221,14 @@
 							<div>
 								<label for="neutralFat">中性脂肪</label>
 								<div>
-									<input type="text" name="neutralFat" />
+									<input type="text" name="neutralFat" required />
 									<span>mg/cll</span>
 								</div>
 							</div>
 							<div>
 								<label for="cholesterol">コレステロール</label>
 								<div>
-									<input type="text" name="cholesterol" />
+									<input type="text" name="cholesterol" required />
 									<span>mg/cll</span>
 								</div>
 							</div>
@@ -237,14 +238,14 @@
 							<div>
 								<label for="maxBloodpressure">最高血圧</label>
 								<div>
-									<input type="text" name="maxBloodpressure" />
+									<input type="text" name="maxBloodpressure" required />
 									<span>mmHg</span>
 								</div>
 							</div>
 							<div>
 								<label for="minBloodpressure">最低血圧</label>
 								<div>
-									<input type="text" name="minBloodpressure" />
+									<input type="text" name="minBloodpressure" required />
 									<span>mmHg</span>
 								</div>
 							</div>
@@ -274,12 +275,18 @@
 		},
 		data() {
 			return {
-				lastYear: "2018年",
-				thisYear: "2019年",
 				user: {
 					e_id: localStorage.getItem("employee")
 				}
 			};
+		},
+		computed: {
+			lastYear() {
+				return new Date().getFullYear() - 1 + "年";
+			},
+			thisYear() {
+				return new Date().getFullYear() + "年";
+			}
 		}
 	};
 </script>
@@ -302,7 +309,7 @@
 		display: none;
 	}
 	#addHealthReport {
-		margin: 70px 0;
+		margin: 60px 0;
 		background: #fff;
 		height: 100%;
 		padding: 20px 0;
@@ -360,18 +367,21 @@
 				}
 
 				.add {
-					margin: 50px auto;
-					width: 50%;
-					z-index: 999;
 					text-align: center;
-
 					input {
-						border-radius: 16px;
-						background: #35495e;
-						font-size: 22px;
-						padding: 5px 15px;
-						text-decoration: none;
+						-webkit-appearance: none;
+						-moz-appearance: none;
+						appearance: none;
+						outline: none;
+
+						font-size: 20px;
+						padding: 10px 0px;
+						margin: 30px auto 20px;
+						width: 60%;
+						text-align: center;
+						background: #34495e;
 						color: #fff;
+						border-radius: 16px;
 					}
 				}
 			}

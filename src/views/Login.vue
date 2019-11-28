@@ -1,5 +1,9 @@
 <template>
 	<div id="login">
+		<div id="preload">
+			<img src="/assets/img/ball.png" alt />
+			<img src="/assets/img/tile.png" alt />
+		</div>
 		<h1>HealthyWork</h1>
 		<div id="loginForm">
 			<h2>ログイン</h2>
@@ -62,25 +66,92 @@
 					formData.append(key, obj[key]);
 				}
 				return formData;
+			},
+			preload() {
+				const preload = document.querySelector("#preload");
+				const preloadImg = document.querySelector("#preload img:nth-of-type(1)");
+				preloadImg.addEventListener("animationend", () => {
+					preload.classList.add("opacity");
+				});
 			}
+		},
+		mounted() {
+			this.preload();
 		}
 	};
 </script>
 
 <style lang="scss" scoped>
+	@keyframes opacity {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+			z-index: -10;
+		}
+	}
+	@keyframes ball {
+		0% {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+		50% {
+			transform: translate(-50%, -50%) rotate(30deg);
+		}
+		80% {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+		100% {
+			transform: translate(300%, 300%) rotate(0deg) scale(100);
+		}
+	}
 	#login {
 		margin: 0 auto;
-		position: absolute;
-		transform: translate(-50%, -50%);
-		top: 40%;
-		left: 50%;
+		position: relative;
+
+		#preload {
+			position: absolute;
+			width: 100vh;
+			height: 100vh;
+			background: #ff8f90;
+			z-index: 10;
+
+			&.opacity {
+				animation: opacity 1s forwards;
+			}
+
+			img {
+				position: absolute;
+			}
+
+			img:nth-of-type(1) {
+				top: 45%;
+				left: 30%;
+				animation: ball 5s forwards ease-in-out;
+			}
+
+			img:nth-of-type(2) {
+				top: 55%;
+				left: 29%;
+				transform: translate(-50%, -50%);
+			}
+		}
 
 		h1 {
+			width: 100%;
+			position: absolute;
+			margin-top: 80px;
+			text-align: center;
 			color: #fff;
 			font-size: 50px;
 		}
 
 		#loginForm {
+			width: 70%;
+			position: absolute;
+			transform: translate(-50%, -50%);
+			top: 55vh;
+			left: 50%;
 			border-radius: 16px;
 			padding: 10px 30px;
 			background: #fff;
@@ -106,6 +177,11 @@
 
 			p {
 				input {
+					-webkit-appearance: none;
+					-moz-appearance: none;
+					appearance: none;
+					outline: none;
+
 					font-size: 20px;
 					padding: 10px 0;
 					margin: 30px auto 20px;
