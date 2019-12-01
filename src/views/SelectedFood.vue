@@ -227,6 +227,7 @@
 
 				img {
 					width: 100px;
+					border-radius: 16px;
 				}
 			}
 		}

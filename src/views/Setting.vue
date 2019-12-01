@@ -51,7 +51,6 @@
 		margin: 60px 0;
 		background: #fff;
 		height: 100vh;
-		padding: 20px 0;
 	}
 
 	#settingData {
@@ -98,6 +97,7 @@
 			background: #34495e;
 			color: #fff;
 			border-radius: 16px;
+			border: 0;
 		}
 	}
 </style>

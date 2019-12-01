@@ -82,6 +82,17 @@
 	// 	opacity: 0;
 	// }
 
+
+	::-webkit-scrollbar {
+        // -webkit-appearance: none;
+		height: 3px;
+    }
+    ::-webkit-scrollbar-thumb {
+        height: 10px;
+        border-radius: 4px;
+        background-color: rgba(255,143,144, 0.5);
+    }
+
 	body {
 		width: 100vw;
 		background: #ff8f90;

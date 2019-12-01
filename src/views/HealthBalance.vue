@@ -148,7 +148,7 @@
 					formData.append(key, obj[key]);
 				}
 				return formData;
-			}
+			},
 		},
 		created() {
 			this.getTodayFood();
@@ -233,7 +233,7 @@
 
 		.noMenu {
 			position: absolute;
-			top: 35%;
+			top: 38%;
 			left: 25%;
 		}
 

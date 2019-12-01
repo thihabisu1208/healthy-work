@@ -3,6 +3,7 @@
 		<div id="preload">
 			<img src="/assets/img/ball.png" alt />
 			<img src="/assets/img/tile.png" alt />
+			<h2>HealthyWork</h2>
 		</div>
 		<h1>HealthyWork</h1>
 		<div id="loginForm">
@@ -95,11 +96,14 @@
 		0% {
 			transform: translate(-50%, -50%) rotate(0deg);
 		}
-		50% {
+		25% {
 			transform: translate(-50%, -50%) rotate(30deg);
 		}
-		80% {
+		50% {
 			transform: translate(-50%, -50%) rotate(0deg);
+		}
+		80% {
+			transform: translate(-50%, -50%) rotate(15deg);
 		}
 		100% {
 			transform: translate(300%, 300%) rotate(0deg) scale(100);
@@ -108,13 +112,15 @@
 	#login {
 		margin: 0 auto;
 		position: relative;
+		height: 100vh;
+		overflow: hidden;
 
 		#preload {
 			position: absolute;
-			width: 100vh;
+			width: 100%;
 			height: 100vh;
 			background: #ff8f90;
-			z-index: 10;
+			z-index: 1000;
 
 			&.opacity {
 				animation: opacity 1s forwards;
@@ -126,14 +132,24 @@
 
 			img:nth-of-type(1) {
 				top: 45%;
-				left: 30%;
-				animation: ball 5s forwards ease-in-out;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				animation: ball 4s forwards ease-in-out;
 			}
 
 			img:nth-of-type(2) {
 				top: 55%;
-				left: 29%;
+				left: 48%;
 				transform: translate(-50%, -50%);
+			}
+
+			h2 {
+				position: absolute;
+				transform: translate(-50%, -50%);
+				top: 70%;
+				left: 50%;
+				color: #fff;
+				font-size: 50px;
 			}
 		}
 

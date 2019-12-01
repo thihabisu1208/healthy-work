@@ -70,7 +70,7 @@
 
 <style lang="scss" scoped>
 	#profile {
-		margin: 70px 0;
+		margin: 60px 0;
 		background: #fff;
 		height: 100vh;
 		padding-top: 10px;
@@ -85,7 +85,7 @@
 		}
 		#profileData {
 			.profile {
-				margin: 50px auto 0;
+				margin: 10px auto 0;
 				width: 90%;
 
 				.profileData {

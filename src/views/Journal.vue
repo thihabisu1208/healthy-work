@@ -56,7 +56,7 @@
 	@import "~@fullcalendar/daygrid/main.css";
 
 	#journal {
-		margin: 60px 0;
+		margin: 60px 0 0;
 		background: #fff;
 		height: 100vh;
 		padding-top: 50px;
@@ -67,9 +67,6 @@
 		width: 90%;
 	}
 
-	.calendar {
-		height: 100vh;
-	}
 	.fc-toolbar.fc-header-toolbar {
 		margin: 0;
 	}

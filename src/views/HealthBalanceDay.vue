@@ -6,7 +6,7 @@
 			</p>
 		</router-link>
 		<Header headerName="食事バランス" />
-		<h1>{{ date }}</h1>
+		<h1>{{ new Date(date).getFullYear() + '年 ' + (new Date(date).getMonth() + 1) + '月 ' + new Date(date).getDate() + '日' }}</h1>
 		<Chart
 			class="charts"
 			:todayChartYellowData="todayChartYellowData"

@@ -30,7 +30,7 @@ const ifAuthenticated = (to, from, next) => {
 };
 
 const router = new Router({
-	mode: 'history',
+	// mode: 'history',
 	base: process.env.BASE_URL,
 	routes: [
 		{

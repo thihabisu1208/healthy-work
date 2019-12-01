@@ -34,7 +34,12 @@
 						class="f"
 						v-if="this.medicalCheckupThisYear.judgement == 'F'"
 					>{{ this.medicalCheckupThisYear.judgement }}</p>
-					<p>軽度の変化</p>
+					<p v-if="this.medicalCheckupThisYear.judgement == 'A'">異常なし</p>
+					<p v-if="this.medicalCheckupThisYear.judgement == 'B'">軽度の変化</p>
+					<p v-if="this.medicalCheckupThisYear.judgement == 'C'">経過観察</p>
+					<p v-if="this.medicalCheckupThisYear.judgement == 'D'">要再検査</p>
+					<p v-if="this.medicalCheckupThisYear.judgement == 'E'">要精密検査</p>
+					<p v-if="this.medicalCheckupThisYear.judgement == 'F'">要治療</p>
 				</div>
 				<hr />
 			</div>
@@ -593,7 +598,7 @@
 			width: 50%;
 			text-align: center;
 			margin: 0;
-			padding: 10px 0px;
+			padding: 12px 0px;
 			border-radius: 50%;
 			font-size: 23px;
 			color: #fff;
@@ -689,7 +694,7 @@
 			p:nth-of-type(1) {
 				font-family: Helvetica, Arial, sans-serif;
 				margin: 13px auto;
-				padding: 10px 16px;
+				padding: 12px 16px;
 				border-radius: 50%;
 				color: #fff;
 				font-size: 22px;
@@ -744,10 +749,10 @@
 
 	.modal {
 		border-radius: 16px;
-		width: 90%;
+		width: 95%;
 		margin: 0px auto;
 		background-color: #fff;
-		box-shadow: 0 1px 1px 1px #ff8f90;
+		// box-shadow: 0 1px 1px 1px #ff8f90;
 		transition: all 1s ease-in;
 		font-family: Helvetica, Arial, sans-serif;
 	}
@@ -769,9 +774,9 @@
 	}
 
 	.modal table {
-		width: 90%;
+		width: 98%;
 		margin: 20px auto;
-		border: 0.1px solid rgb(104, 99, 99);
+		// border: 0.1px solid rgb(104, 99, 99);
 		color: rgb(104, 99, 99);
 
 		th {

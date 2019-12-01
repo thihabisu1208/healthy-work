@@ -1,5 +1,5 @@
 <template>
-	<div id="food">
+	<div id="food" class="padding">
 		<div id="foodMain" class="foodData">
 			<h1>主菜</h1>
 			<div class="food">
@@ -89,16 +89,17 @@
 							var category = foodData[c].m_category;
 							var daily = foodData[c].m_default;
 							if (category === "主菜" && daily == 1) {
-								foodMainDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
+								foodMainDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px; 
+						border-radius: 16px;" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
 							} else if (category === "副菜" && daily == 1) {
-								foodSideDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
+								foodSideDish.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems"><img class="foodItemsImg" style="width: 100px; border-radius: 16px;" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
 							} else if (
 								(category === "汁物" ||
 									category === "ごはん" ||
 									category === "デザート") &&
 								daily == 1
 							) {
-								foodSoupRiceAndDeserts.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems" name="${foodData[c].m_name}"><img class="foodItemsImg" style="width: 100px" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
+								foodSoupRiceAndDeserts.innerHTML += `<li style="margin: 0 5px;"><label><input type="checkbox" style="display: none" value="${foodData[c].m_name}" class="foodItems" name="${foodData[c].m_name}"><img class="foodItemsImg" style="width: 100px; border-radius: 16px;" src="http://jz.jec.ac.jp/innovative/jpg/${foodData[c].m_id}.jpg" data-name="${foodData[c].m_name}" data-red="${foodData[c].m_red}" data-redcalorie="${foodData[c].m_redcalorie}" data-yellow="${foodData[c].m_yellow}" data-yellowcalorie="${foodData[c].m_yellowcalorie}" data-green="${foodData[c].m_green}" data-greencalorie="${foodData[c].m_greencalorie}" alt="${foodData[c].m_id}"/></label></li>`;
 							}
 						}
 						this.addToPlate();
@@ -142,6 +143,13 @@
 </script>
 
 <style lang="scss" scoped>
+	.padding{
+			padding: 20px 0 38vh;
+	}
+
+	#foodMain{
+		padding-top: 10px;
+	}
 	.overlay {
 		width: 100%;
 		height: 100vh;
@@ -171,10 +179,12 @@
 				overflow-x: auto;
 
 				ul {
+					padding: 0 0 0 8px;
 					// width: 100%;
 					display: flex;
 					flex-wrap: no-wrap;
 					list-style: none;
+					// scrollbar-width: 10;
 				}
 			}
 		}
@@ -191,7 +201,7 @@
 	}
 
 	#menuImage {
-		border: 1px solid rgb(158, 149, 149);
+		box-shadow: 3px 3px 10px rgb(158, 149, 149);
 		height: 250px;
 		border-radius: 16px 16px 0 0;
 		padding-bottom: 10px;
@@ -221,6 +231,7 @@
 			li {
 				margin: 0 15px;
 				img {
+					border-radius: 16px;
 					width: 90px;
 					display: flex;
 					flex-wrap: no-wrap;
