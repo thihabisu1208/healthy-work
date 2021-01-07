@@ -148,7 +148,7 @@
 					formData.append(key, obj[key]);
 				}
 				return formData;
-			},
+			}
 		},
 		created() {
 			this.getTodayFood();
@@ -299,21 +299,22 @@
 
 			div:nth-of-type(2) {
 				p span:nth-of-type(1) {
-					color: #92e19a;
+					color: #45f80e;
 				}
 			}
 
 			div:nth-of-type(3) {
 				p span:nth-of-type(1) {
-					color: #fede8a;
+					color: #ca9e0e;
 				}
 			}
 		}
 
 		#oneDay {
 			width: 90%;
-			margin: 0 auto;
-			background: #f1c3c3;
+			margin: 50px auto;
+			color: #fff;
+			background: #ff8f90;
 
 			div {
 				width: 80%;

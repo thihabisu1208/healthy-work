@@ -310,21 +310,22 @@
 
 			div:nth-of-type(2) {
 				p span:nth-of-type(1) {
-					color: #92e19a;
+					color: #45f80e;
 				}
 			}
 
 			div:nth-of-type(3) {
 				p span:nth-of-type(1) {
-					color: #fede8a;
+					color: #ca9e0e;
 				}
 			}
 		}
 
 		#oneDay {
+			color: #fff;
 			width: 90%;
 			margin: 0 auto;
-			background: #f1c3c3;
+			background: #ff8f90;
 
 			div {
 				width: 80%;

@@ -31,6 +31,9 @@
 				</div>
 			</div>
 		</div>
+		<p class="save">
+			<router-link to="/changepassword">パスワード再設定</router-link>
+		</p>
 	</div>
 </template>
 
@@ -105,6 +108,21 @@
 						text-align: right;
 					}
 				}
+			}
+		}
+
+		.save {
+			margin: 100px auto;
+			text-align: center;
+			a {
+				width: 60%;
+				margin: 20px auto;
+				background: #34495e;
+				padding: 15px 70px;
+				border-radius: 20px;
+				font-size: 22px;
+				text-decoration: none;
+				color: #fff;
 			}
 		}
 	}

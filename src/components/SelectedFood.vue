@@ -68,6 +68,19 @@
 			</p>
 			<!-- </div> -->
 		</form>
+		<div id="oneDay">
+			<div>
+				<h3>
+					一食の目安
+					<span>80 kcal = 1点</span>
+				</h3>
+				<p>
+					<span>緑 : 1点</span>
+					<span>赤 : 2点</span>
+					<span>黄色 : 5点</span>
+				</p>
+			</div>
+		</div>
 	</div>
 </template>
 

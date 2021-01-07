@@ -1,19 +1,23 @@
 <template>
 	<div id="login">
-		<div id="preload">
+		<!-- <div id="preload">
 			<img src="/assets/img/ball.png" alt />
 			<img src="/assets/img/tile.png" alt />
 			<h2>HealthyWork</h2>
-		</div>
-		<h1>HealthyWork</h1>
+		</div>-->
+		<h1>Sunshine</h1>
 		<div id="loginForm">
 			<h2>ログイン</h2>
 			<div>
 				<label for="e_id">社員 ID</label>
-				<input type="text" name="e_id" v-model="employee.e_id" />
-				<label for="e_password">パスワード</label>
-				<input type="password" name="e_password" v-model="employee.e_password" />
 				<p>
+					<input type="text" name="e_id" v-model="employee.e_id" />
+				</p>
+				<label for="e_password">パスワード</label>
+				<p>
+					<input type="password" name="e_password" v-model="employee.e_password" />
+				</p>
+				<p id="loginBtn">
 					<input type="submit" value="ログイン" @click.prevent="login()" />
 				</p>
 			</div>
@@ -67,17 +71,17 @@
 					formData.append(key, obj[key]);
 				}
 				return formData;
-			},
-			preload() {
-				const preload = document.querySelector("#preload");
-				const preloadImg = document.querySelector("#preload img:nth-of-type(1)");
-				preloadImg.addEventListener("animationend", () => {
-					preload.classList.add("opacity");
-				});
 			}
+			// preload() {
+			// 	const preload = document.querySelector("#preload");
+			// 	const preloadImg = document.querySelector("#preload img:nth-of-type(1)");
+			// 	preloadImg.addEventListener("animationend", () => {
+			// 		preload.classList.add("opacity");
+			// 	});
+			// }
 		},
 		mounted() {
-			this.preload();
+			// this.preload();
 		}
 	};
 </script>
@@ -115,48 +119,48 @@
 		height: 100vh;
 		overflow: hidden;
 
-		#preload {
-			position: absolute;
-			width: 100%;
-			height: 100vh;
-			background: #ff8f90;
-			z-index: 1000;
+		// #preload {
+		// 	position: absolute;
+		// 	width: 100%;
+		// 	height: 100vh;
+		// 	background: #ff8f90;
+		// 	z-index: 1000;
 
-			&.opacity {
-				animation: opacity 1s forwards;
-			}
+		// 	&.opacity {
+		// 		animation: opacity 1s forwards;
+		// 	}
 
-			img {
-				position: absolute;
-			}
+		// 	img {
+		// 		position: absolute;
+		// 	}
 
-			img:nth-of-type(1) {
-				top: 45%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				animation: ball 4s forwards ease-in-out;
-			}
+		// 	img:nth-of-type(1) {
+		// 		top: 45%;
+		// 		left: 50%;
+		// 		transform: translate(-50%, -50%);
+		// 		animation: ball 4s forwards ease-in-out;
+		// 	}
 
-			img:nth-of-type(2) {
-				top: 55%;
-				left: 48%;
-				transform: translate(-50%, -50%);
-			}
+		// 	img:nth-of-type(2) {
+		// 		top: 55%;
+		// 		left: 48%;
+		// 		transform: translate(-50%, -50%);
+		// 	}
 
-			h2 {
-				position: absolute;
-				transform: translate(-50%, -50%);
-				top: 70%;
-				left: 50%;
-				color: #fff;
-				font-size: 50px;
-			}
-		}
+		// 	h2 {
+		// 		position: absolute;
+		// 		transform: translate(-50%, -50%);
+		// 		top: 70%;
+		// 		left: 50%;
+		// 		color: #fff;
+		// 		font-size: 50px;
+		// 	}
+		// }
 
 		h1 {
 			width: 100%;
 			position: absolute;
-			margin-top: 80px;
+			margin-top: 50px;
 			text-align: center;
 			color: #fff;
 			font-size: 50px;
@@ -166,7 +170,7 @@
 			width: 70%;
 			position: absolute;
 			transform: translate(-50%, -50%);
-			top: 55vh;
+			top: 50vh;
 			left: 50%;
 			border-radius: 16px;
 			padding: 10px 30px;
@@ -174,12 +178,6 @@
 
 			h2 {
 				text-align: center;
-			}
-
-			label,
-			input {
-				display: block;
-				margin: 20px 0;
 			}
 
 			input[type="text"],
@@ -192,6 +190,10 @@
 			}
 
 			p {
+				text-align: center;
+			}
+
+			#loginBtn {
 				input {
 					-webkit-appearance: none;
 					-moz-appearance: none;

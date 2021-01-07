@@ -6,7 +6,6 @@
 			</p>
 		</router-link>
 		<Header headerName="健康診断結果登録" />
-		{{ lastYears }}
 		<vue-tabs>
 			<v-tab :title="this.lastYear">
 				<div class="healthReportData">

@@ -7,6 +7,7 @@ import SelectedFood from './views/SelectedFood.vue';
 import Journal from './views/Journal.vue';
 import Setting from './views/Setting.vue';
 import Profile from './views/Profile.vue';
+import ChangePassword from './views/ChangePassword.vue';
 import HealthReport from './views/HealthReport.vue';
 import AddHealthReport from './views/AddHealthReport.vue';
 import Login from './views/Login.vue';
@@ -80,6 +81,11 @@ const router = new Router({
 			path: '/profile',
 			name: 'profile',
 			component: Profile
+		},
+		{
+			path: '/changepassword',
+			name: 'changepassword',
+			component: ChangePassword
 		},
 		{
 			path: '/healthreport',

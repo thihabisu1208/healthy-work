@@ -41,7 +41,7 @@
 			<!-- <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link> -->
 		</div>
 		<!-- <router-view /> -->
-		<router-view @authenticated="setAuthenticated" />
+		<router-view @authenticated="setAuthenticated"></router-view>
 	</div>
 </template>
 
@@ -82,16 +82,15 @@
 	// 	opacity: 0;
 	// }
 
-
 	::-webkit-scrollbar {
-        // -webkit-appearance: none;
+		// -webkit-appearance: none;
 		height: 3px;
-    }
-    ::-webkit-scrollbar-thumb {
-        height: 10px;
-        border-radius: 4px;
-        background-color: rgba(255,143,144, 0.5);
-    }
+	}
+	::-webkit-scrollbar-thumb {
+		height: 10px;
+		border-radius: 4px;
+		background-color: rgba(255, 143, 144, 0.5);
+	}
 
 	body {
 		width: 100vw;

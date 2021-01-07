@@ -17,9 +17,12 @@
 					</div>
 					<div class="food">
 						<div class="foodImage" v-for="food in currentFood" :key="food.m_id">
-							<img style="display: inline" :src="'http://jz.jec.ac.jp/innovative/jpg/' + food.m_id + '.jpg'" />
+							<img
+								style="display: inline"
+								:src="'http://jz.jec.ac.jp/innovative/jpg/' + food.m_id + '.jpg'"
+							/>
 							<p>
-								<input type="text" name="m_id[]" v-model="food.m_id"/>
+								<input type="text" name="m_id[]" v-model="food.m_id" />
 								{{ food.name }}
 							</p>
 						</div>
@@ -35,7 +38,7 @@
 							<span>血液や筋肉を作る</span>
 							<span>
 								<span>{{ getTotalRed }} 点</span>
-								<span>{{ getRed }}/80 kcal</span>
+								<span>{{ getRed }}/160 kcal</span>
 							</span>
 						</p>
 					</div>
@@ -47,7 +50,7 @@
 							<span>体の調子を整える</span>
 							<span>
 								<span>{{ getTotalGreen }} 点</span>
-								<span>{{ getGreen }}/240 kcal</span>
+								<span>{{ getGreen }}/80 kcal</span>
 							</span>
 						</p>
 					</div>
@@ -64,9 +67,22 @@
 						</p>
 					</div>
 				</div>
+				<div id="oneDay">
+					<div>
+						<h3>
+							一食の目安
+							<span>80 kcal = 1点</span>
+						</h3>
+						<p>
+							<span>緑 : 1点</span>
+							<span>赤 : 2点</span>
+							<span>黄色 : 5点</span>
+						</p>
+					</div>
+				</div>
 				<p id="save">
 					<!-- <input type="submit" @click="submit" value="お昼ご飯を登録" /> -->
-					<input type="submit" value="お昼ご飯を登録" />
+					<input type="submit" value="お昼ご飯を記録" />
 				</p>
 				<!-- </div> -->
 			</form>
@@ -114,7 +130,6 @@
 				this.$http
 					.post("http://jz.jec.ac.jp/innovative/addRecord.php", foodForm)
 					.then(response => {
-						console.log(response.data);
 						// this.$router.push("/healthbalance");
 					})
 					.catch(err => console.log(err));
@@ -126,11 +141,6 @@
 				}
 				return formData;
 			}
-		},
-		created() {
-			console.log(this.sendFood);
-			console.log(this.getFoodId);
-			console.log(this.toFormData(this.sendFood));
 		},
 		computed: {
 			getFoodId() {
@@ -275,13 +285,13 @@
 
 			div:nth-of-type(2) {
 				p span:nth-of-type(1) {
-					color: #92e19a;
+					color: #45f80e;
 				}
 			}
 
 			div:nth-of-type(3) {
 				p span:nth-of-type(1) {
-					color: #fede8a;
+					color: #ca9e0e;
 				}
 			}
 		}
@@ -304,6 +314,37 @@
 				border-radius: 16px;
 				border: 0;
 			}
+		}
+	}
+
+	#oneDay {
+		width: 90%;
+		margin: 30px auto 0;
+		color: #fff;
+		background: #ff8f90;
+
+		div {
+			width: 80%;
+			margin: 10px auto;
+			padding: 10px 0;
+		}
+
+		h3 {
+			margin: 10px 0;
+		}
+
+		h3 span {
+			text-align: right;
+		}
+
+		p {
+			width: 100%;
+			margin: 10px 0;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+		p span {
+			font-size: 18px;
 		}
 	}
 </style>

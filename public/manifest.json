@@ -1,0 +1,16 @@
+{
+	"short_name": "Healthy Work",
+	"name": "Healthy Work",
+	"icons": [
+		{
+			"src": "apple-icon.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		}
+	],
+	"start_url": "index.html",
+	"background_color": "#FF9090",
+	"display": "standalone",
+	"scope": "/healthywork/",
+	"theme_color": "#FF9090"
+}
